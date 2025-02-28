@@ -1,0 +1,70 @@
+.vehicleSelect {
+    /* border: 2px solid red; */
+    width: 100vw;
+     height: 57vh; 
+  
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-left: 0.5rem;
+    box-sizing: border-box;
+    z-index: 10;
+    background-color: white;
+    overflow: hidden;
+  }
+  
+.vehicle {
+    display: flex;
+    align-items: center;
+    width: calc(100vw - 1.5rem);
+    height: 12vh;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+  .vehicle img {
+    width: 25vw;
+    height: 93%;  /* fills parent's 14vh height */
+    object-fit: contain;
+    /* border: 2px solid pink; */
+  }
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* ensure text starts at the left-most edge */
+    justify-content: center;
+    padding: 0 1rem;  /* Optional: spacing between image and details */
+  }
+  
+  .details p {
+    margin: 0;         /* remove default margin for tight spacing */
+    line-height: 1.2;  /* adjust for minimal vertical spacing */
+  }
+  
+  .class {
+    /* Styling for "Uber Go" */
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  
+  .classPara {
+    /* Styling for "Affordable Compact rides" */
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  .price {
+    margin-left: auto;
+    padding-right: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .vehicleChose{
+    margin-bottom: 2rem;
+  }
+  .point2 {
+    position: absolute;
+    left: 21rem;
+    top: 2rem;
+  }

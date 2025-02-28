@@ -1,0 +1,118 @@
+/* Ensure the root elements take up full viewport height */
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+.homeMain  {
+  background-image: url('/images/map.gif'); 
+  background-size: cover;
+}
+.uberLogo{
+  display: flex;
+  justify-content: space-between;
+}
+.circle{
+  /* border: 2px solid red; */
+  width:45px;
+  height: 50px;
+  position: relative;
+  background-color: white;
+  right: 29px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ri-booklet-line{
+  /* border: 2px solid blue; */
+  /* position: relative;
+  right: 29px; */
+  font-size: 1.5rem;
+}
+.capUI{
+  /* border: 2px solid red; */
+  width: 100vw;
+  height: 40vh;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  text-align: center;
+}
+.driver {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Add some spacing between image and name */
+  /* border: 2px solid brown; */
+}
+
+.driver {
+  display: flex; 
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Space between image and text */
+  position: relative; /* Needed for absolute positioning */
+}
+
+.driv_name {
+  margin: 0;
+  font-weight: bold;
+}
+
+.driv_plate {
+  position: absolute;
+  top: 40%; /* Move below the driver name */
+  left: 60px; /* Adjust position to the right of image */
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.driver img{
+  width: 3rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+.driverCar img{
+  width: 5.5rem;
+  height: 4rem;
+}
+.captin{
+  display: flex;
+  /* border: 2px solid green; */
+  justify-content: space-between;
+  padding: 1rem;
+}
+.captinDetails{
+  display: flex;
+  /* border: 2px solid green; */
+  justify-content: space-between;
+  padding: 1rem;
+  width: 70vw;
+  position: absolute;
+  left: 2rem;
+  background-color: rgb(241, 238, 238);
+  border-radius: 0.4rem;
+}
+i.ri-time-fill {
+  font-size: 1.5rem; /* Adjust size as needed */
+}
+i.ri-star-half-fill{
+  font-size: 1.5rem;
+}
+.Hrs {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Hrs p {
+  margin: 0; /* Remove default margins */
+  padding: 0;
+  font-size: 1rem;
+}
+/* Add gap between consecutive paragraphs */
+.Hrs p + p {
+  margin-top: 0rem; /* Adjust as needed */
+}
+.ri-arrow-down-wide-line{
+  font-size: 1.5rem;
+}

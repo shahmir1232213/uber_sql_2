@@ -1,0 +1,89 @@
+html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  
+ .homeMain  {
+    /* background-image: url('/images/map.gif');  */
+    background-size: cover;
+  }
+  .mapContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* Ensures it's in the background */
+  }
+  /* Optional styling for the container */
+  .homeMain {
+    height: 100vh; /* Full viewport height */
+    position: relative;
+  }
+  
+  /* Position the form fixed at the bottom */
+  .bookRide {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw; /* Full viewport width */
+    /* border: 2px solid red; */
+    padding: 20px;
+    background-color: white;
+    box-sizing: border-box;
+  
+  }
+  input{
+    margin: 5px;
+    border: 0;
+    padding-left: 20px;
+    box-sizing: border-box;
+  }
+  .line {
+    position: absolute;
+    width: 0px;
+    top: 6rem;
+    left: 2rem;
+    height: 2.5rem;
+    border: 1px solid black;
+  }
+/* In your home.css */
+.scroll {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden; /* Initial state set here */
+  /* Optionally add padding if needed */
+  padding-left: 35px;
+  padding-top: 15px;
+}
+
+.find{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  
+}
+.icon{
+  display: flex;
+  /* border: 2px solid red; */
+  justify-content: flex-end;
+  
+}
+.fidText{
+  /* border: 2px solid yellow; */
+  width: 145rem;
+  
+}
+.findAtrip{
+  width: 21rem;
+  height: 3rem;
+  margin-top: 0.5rem;
+  margin-left: 0.2rem;
+  background-color: black;
+  color: white;
+  border-radius: 7px;
+  font-weight: bold;
+
+}
