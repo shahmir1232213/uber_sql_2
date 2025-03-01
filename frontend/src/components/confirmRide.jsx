@@ -37,14 +37,14 @@ const ConfirmRide = ({vhDetails,select,select2,points}) => {
       <div className='imageDiv'>
       <img src={vhDetails.vhDetails.vehicleImage} alt="Car" />
       </div>
-      <div className='riderName'>{vhDetails.vhDetails.vehicleName}</div>
+      {/* <div className='riderName'>{vhDetails.vhDetails.vehicleName}</div> */}
       <div className='carDetails'>
         <p className='numPlate'>Aen-504</p>
         <p className='model'>2011</p>
       </div>
       <div className='Rideprice'>
         <p>Price</p>
-        <p>{vhDetails.vhDetails.fare}</p>
+        <p>{vhDetails.vhDetails.fare} PKR</p>
       </div>
       <button className='ConfirmRide' 
       onClick={async()=>{

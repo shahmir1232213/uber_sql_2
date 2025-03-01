@@ -108,7 +108,7 @@ useEffect(() => {
   useEffect(() => {
     async function fetchCoordinates() {
       const coordinates = await GeoService.getCoordinates(`${rideWithUser?.pickup}`);
-      console.log('Pickup coordinates: ',coordinates);
+      //console.log('Pickup coordinates: ',coordinates);
       setPickUpCoordinates(coordinates)
     }
     fetchCoordinates();
@@ -118,7 +118,7 @@ useEffect(() => {
   useEffect(() => {
     async function fetchCoordinates() {
       const coordinates = await GeoService.getCoordinates(`${rideWithUser?.destination}`);
-      console.log('Destination coordinates:', coordinates);
+      //console.log('Destination coordinates:', coordinates);
       setDestinationCoordinates(coordinates);
     }
     fetchCoordinates();
