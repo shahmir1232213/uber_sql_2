@@ -5,7 +5,7 @@ html, body{
     height: 100%;
   }
 .homeMain  {
-  background-image: url('/images/map.gif'); 
+  /* background-image: url('/images/map.gif');  */
   background-size: cover;
 }
 .uberLogo{

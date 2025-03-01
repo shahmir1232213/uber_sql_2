@@ -8,7 +8,7 @@ import RidePickConfirm from '../components/ridePickConfirm';
 import {CaptinContext} from '../context/captinContext'
 import {CaptinSocketContext} from '../context/CaptinSocketContext'
 import axios from'axios'
-
+// import LiveTracking from '../components/LiveTracking';
 
 const CaptinHome = () => {
  const [ridePannel,setRidePannel] = useState(false)
@@ -45,12 +45,6 @@ const CaptinHome = () => {
      to continuously update the location.*/
     let locationInterVal = setInterval(updateLocation,10000)
   }
-  // captinSocket.on('new-ride', (data) => {
-  //   console.log("from user: ",data)
-  //   Set_rideWithUser(data)
-  //   setRidePannel(true)
-  //   console.log("ridePannel: ",ridePannel)
-  // })
 }, [captin, captinSocket]);
 
 useEffect(() => {
@@ -109,6 +103,7 @@ useEffect(() => {
  
   return (
     <div className='homeMain'>
+      {/* <LiveTracking /> */}
       <div className='uberLogo'>
         <img src='/images/Uber_logo.png' alt="Uber Logo" />
         <div className='circle'>

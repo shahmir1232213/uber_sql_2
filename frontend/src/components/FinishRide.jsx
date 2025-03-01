@@ -1,13 +1,18 @@
 import React from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
+
 const completeRidePopUp = ({setShowCompleteRide,rideWithUser}) => {
-  async function finishRideFunc{
-    let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/end-ride`,{},{
-        headers:{
-            Authorization:`Bearer ${localStorage.getItem('token')}`
-        }
-    })
-  }
+    let navigate = useNavigate()
+    async function finishRideFunc(){
+        let rideId = rideWithUser._id;
+        let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/end-ride`,{rideId},{
+            headers:{
+                Authorization:`Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        navigate('/captinHome')
+    }
     return (
          <div className='RidePopup'>
         <h1>Finish this ride</h1>

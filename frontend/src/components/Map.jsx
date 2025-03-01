@@ -1,6 +1,6 @@
 // src/MapComponent.js
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -17,8 +17,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const MapComponent = () => {
-  const position = [24.8527673, 67.0747573]; // Fixed position (New York)
+const MapComponent = (pickup,destination) => {
+  const position = [24.8527673, 67.0747573]; // Start point
+  const destination = [24.8678, 67.0842]; // End point
+  //const path = [position, destination]; // Path between points
 
   return (
     <MapContainer center={position} zoom={13} style={{ height: '100vh', width: '100%' }}>
@@ -27,8 +29,12 @@ const MapComponent = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <Marker position={position}>
-        <Popup>Karachi</Popup>
+        <Popup>Start Point</Popup>
       </Marker>
+      <Marker position={destination}>
+        <Popup>End Point</Popup>
+      </Marker>
+      <Polyline positions={path} color="red" /> {/* Line between markers */}
     </MapContainer>
   );
 };

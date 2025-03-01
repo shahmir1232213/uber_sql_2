@@ -43,22 +43,7 @@ function getOtp(){
     return otp;
 
 }
-// module.exports.createRide = async (user,pickup,destination,vehicleType) =>{
-//     if(!user||!vehicleType||!pickup||!destination){
-//         throw new Error ("All fields are required")
-//     }
-//     let fare = await module.exports.getFare(pickup,destination);
-//     console.log("RideModel:", rideModel);
 
-//     const ride = await rideModel.create({
-//         user:user,
-//         pickup:pickup,
-//         destination:destination,
-//         fare:fare[vehicleType],
-//         otp:getOtp()
-//     })
-//     return ride;
-// }
 module.exports.createRide = async (user,pickup,destination,vehicleType,fare) =>{
     if(!user||!vehicleType||!pickup||!destination){
         throw new Error ("All fields are required")
@@ -133,6 +118,26 @@ module.exports.startRideService = async (rideId) => {
         throw new Error('Ride not accepted');
     }
      ride.status = "ongoing";
+     await ride.save();
+     return ride;
+}
+
+module.exports.endRide = async (rideId) => {
+    if (!rideId) {
+        throw new Error('Ride id is required');
+    }
+    const ride = await rideModel.findOne({
+        _id: rideId
+    }).populate('user').populate('captin').select('+otp');
+    
+    if (!ride) {
+        throw new Error('Ride not found');
+    }
+
+    if (ride.status !== 'ongoing') {
+        throw new Error('Ride not ongoing');
+    }
+     ride.status = "completed";
      await ride.save();
      return ride;
 }

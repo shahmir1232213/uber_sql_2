@@ -28,7 +28,10 @@ router.post('/start-ride',authMiddleWare_Captin,
        body('rideId').isMongoId().withMessage('Invalid MongoDB Id'),
        rideController.startRide
 )
-
+router.post('/end-ride',authMiddleWare_Captin,
+        body('rideId').isMongoId().withMessage('Invalid MongoDB Id'),
+        rideController.endRide
+)
 router.post('/cancel',authMiddleWare_Captin,
             rideController.cancelRide
 )

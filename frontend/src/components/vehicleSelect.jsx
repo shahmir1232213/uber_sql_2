@@ -15,10 +15,10 @@ const VehicleSelect = ({ vhPannel, pan, select, vhDetails ,points}) => {
       vehicleType
     });
   };
-  useEffect(() => {
-    console.log("points destination: ", points.destination);
-    console.log("points.pickup: ", points.pickup);
-  });
+  // useEffect(() => {
+  //   console.log("points destination: ", points.destination);
+  //   console.log("points.pickup: ", points.pickup);
+  // });
   
   useEffect(() => {
       const getRide = async () => {

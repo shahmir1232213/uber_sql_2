@@ -10,6 +10,7 @@ import MapComponent from '../components/Map';
 import {UserDataContext} from '../context/userContext';
 import {UserSocketContext} from '../context/UserSocketContext'
 import RidePickConfirm from '../components/ridePickConfirmUser';
+import GeoService from '../services/GeoService';
 
 const Home = () => {
   /* asal main socket hai bus name 
@@ -49,6 +50,9 @@ const Home = () => {
   const [CloseConfirmPopUpPannel,SetCloseConfirmPopUpPannel] = useState(null)
   const [ride,setRide] = useState(null)
 
+  const [pickUpCoordinates, setPickUpCoordinates] = useState({ latitude: null, longitude: null });
+  const [destinationCoordinates, setDestinationCoordinates] = useState({ latitude: null, longitude: null });
+  
   const lookingPannelRef = useRef(false)
   const [vhDetails,setvhDetails] = useState({
     vehicleName:'',
@@ -64,6 +68,27 @@ const Home = () => {
     console.log("destination: ",destination)
     console.log("pannel: ",pannel)
   }
+
+  /* points pickup Coordinates */
+  useEffect(() => {
+    async function fetchCoordinates() {
+      const coordinates = await GeoService.getCoordinates(`${pickup}`);
+      console.log('Pickup coordinates: ',coordinates);
+      setPickUpCoordinates(coordinates)
+    }
+    fetchCoordinates();
+  },[pickup]);
+
+  /* Points Destination Coordinates */
+  useEffect(() => {
+    async function fetchCoordinates() {
+      const coordinates = await GeoService.getCoordinates(`${destination}`);
+      console.log('Destination coordinates:', coordinates);
+      setDestinationCoordinates(coordinates);
+    }
+    fetchCoordinates();
+  }, [destination]);
+
 
 /*Location Pannel*/
   useEffect(() => {
@@ -219,7 +244,7 @@ useEffect(() => {
     <div className='homeMain'>
     {/* Map positioned as background */}
     <div className="mapContainer">
-      <MapComponent />
+      <MapComponent pickup={pickup} destination={destination} />
     </div>
 
     {/* Uber Logo */}
