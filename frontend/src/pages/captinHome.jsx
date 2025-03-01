@@ -8,6 +8,8 @@ import RidePickConfirm from '../components/ridePickConfirm';
 import {CaptinContext} from '../context/captinContext'
 import {CaptinSocketContext} from '../context/CaptinSocketContext'
 import axios from'axios'
+import GeoService from '../services/GeoService';
+import MapComponent from '../components/Map';
 // import LiveTracking from '../components/LiveTracking';
 
 const CaptinHome = () => {
@@ -100,10 +102,32 @@ useEffect(() => {
     })
   } 
 }, [confirmRidePannel]);
+  const [pickUpCoordinates, setPickUpCoordinates] = useState({ latitude: null, longitude: null });
+  const [destinationCoordinates, setDestinationCoordinates] = useState({ latitude: null, longitude: null });
  
+  useEffect(() => {
+    async function fetchCoordinates() {
+      const coordinates = await GeoService.getCoordinates(`${rideWithUser?.pickup}`);
+      console.log('Pickup coordinates: ',coordinates);
+      setPickUpCoordinates(coordinates)
+    }
+    fetchCoordinates();
+  },[rideWithUser?.pickup]);
+
+  /* Points Destination Coordinates */
+  useEffect(() => {
+    async function fetchCoordinates() {
+      const coordinates = await GeoService.getCoordinates(`${rideWithUser?.destination}`);
+      console.log('Destination coordinates:', coordinates);
+      setDestinationCoordinates(coordinates);
+    }
+    fetchCoordinates();
+  }, [rideWithUser?.destination]);
   return (
     <div className='homeMain'>
-      {/* <LiveTracking /> */}
+     <div className="mapContainer">
+      <MapComponent pickUpCoordinates={pickUpCoordinates} destinationCoordinates={destinationCoordinates} />
+    </div>
       <div className='uberLogo'>
         <img src='/images/Uber_logo.png' alt="Uber Logo" />
         <div className='circle'>
