@@ -64,7 +64,7 @@ async function logout(req,res,next){
             createdAt:Date.now()
         })
         res.clearCookie('token')
-        return res.status(201).json({message:"logged out"})
+        return res.status(200).json({message:"logged out"})
    }
    catch(err){
         return res.status(500).json({ message: "Internal server error" });

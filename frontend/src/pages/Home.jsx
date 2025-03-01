@@ -332,11 +332,26 @@ import {UserSocketContext} from '../context/UserSocketContext'
 import RidePickConfirm from '../components/ridePickConfirmUser';
 import GeoService from '../services/GeoService';
 import MapComponent from '../components/Map';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 const Home = () => {
   /* asal main socket hai bus name 
    captin diya va don't confuse*/
+   let navigate = useNavigate()
 
+   async function logOutFunc(){
+      let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/logout`,{},{
+        headers:{
+          Authorization:`Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      if(response.status == 200 ){
+        localStorage.clear('token')
+        navigate('/')
+        console.log("logout message from frontend")  
+      }
+    }
   const socket = useContext(UserSocketContext)
   const {user} = useContext(UserDataContext);
   useEffect(()=>{
@@ -569,9 +584,14 @@ useEffect(() => {
     </div>
 
     {/* Uber Logo */}
+    
     <div className='uberLogo'>
-      <img src='/images/Uber_logo.png' alt="Uber Logo" />
-    </div>
+        <img src='/images/Uber_logo.png' alt="Uber Logo" />
+        <div onClick={logOutFunc} className='circle'>
+          <i class="ri-booklet-line"></i>
+        </div>
+      </div>
+ 
 
     {/* Booking Form */}
     <form ref={formRef} className='bookRide' onSubmit={(e) => submitHandler(e)}>

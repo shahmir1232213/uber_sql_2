@@ -10,6 +10,7 @@ import {CaptinSocketContext} from '../context/CaptinSocketContext'
 import axios from'axios'
 import GeoService from '../services/GeoService';
 import MapComponent from '../components/Map';
+import { useNavigate } from 'react-router-dom';
 // import LiveTracking from '../components/LiveTracking';
 
 const CaptinHome = () => {
@@ -20,7 +21,20 @@ const CaptinHome = () => {
  const {captin} = React.useContext(CaptinContext)
  const [rideWithUser,Set_rideWithUser] = useState(null)
  const captinSocket = useContext(CaptinSocketContext)
-
+ let navigate = useNavigate()
+ 
+ async function logOutFunc(){
+    let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captin/logout`,{},{
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem('token')}`
+      }
+    })
+    if(response.status == 200 ){
+      localStorage.clear('token')
+      navigate('/')
+      console.log("logout message from frontend")  
+    }
+  }
 
  useEffect(() => {
   if (captin && captin._id) {
@@ -130,7 +144,7 @@ useEffect(() => {
     </div>
       <div className='uberLogo'>
         <img src='/images/Uber_logo.png' alt="Uber Logo" />
-        <div className='circle'>
+        <div onClick={logOutFunc} className='circle'>
           <i class="ri-booklet-line"></i>
         </div>
       </div>
