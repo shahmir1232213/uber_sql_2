@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     password:{
         required:true,
         type:String,
-        minLength:[5,'Your Password must contain atleast 5 characters'],
+        minLength:[3,'Your Password must contain atleast 5 characters'],
         select:false
     },
     socketId:{

@@ -20,6 +20,7 @@ async function verifyEmail(req,res,next){
     //console.log("email: ",req.body.email)
     let user = await userModel.findOne({email:req.body.email});
     console.log("user: ",user)
+    
     if(user){
         let code = generateCode();
         let message = `Dear ${user.fullName.firstName+' '+user.fullName.lastName},  
@@ -31,17 +32,35 @@ async function verifyEmail(req,res,next){
         req.code = code; 
         res.locals.flag = true;
         console.log("code: ",code)
+      //  next();
         return res.status(200).json(code)
     }
 }
 
-async function verifyCode(req,res){
-    console.log("req.code: ",req.code)
-    return 
+function verifyCode(req,res){
+    console.log("req.code: ",req.body)
+    let code = req.body.code;
+    let input = req.body.input;
+    if (input === code) {
+        return res.status(200).json({ status: 200, message: "Code is correct" });
+    } else {
+        return res.status(400).json({ status: 400, message: "Code is incorrect" });  // Opposite response
+    }
 }
+async function changePass(req,res){
+    console.log("passss changed: ",req.body.email)
+    let user = await userModel.findOne({ email:req.body.email });
+    let newPass = req.body.newPass;
+    newPass = await userModel.hashPassword(newPass)
+    user.password = newPass;
+    await user.save()
+    console.log("user: ",user)
+    return res.status(200).json({ status: 200, message: "Password updated successfully" });
 
+}
 module.exports = {
     forgotPassword,
     verifyEmail,
-    verifyCode
+    verifyCode,
+    changePass
 }

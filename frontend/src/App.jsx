@@ -15,7 +15,7 @@ import CaptinRiding from './pages/captinRiding.jsx';
 import Map from './components/Map'; // Import the Map component
 import UserForgotPass from './pages/UserForgotPass.jsx';
 import ResetPass from './pages/ResetPass'
-
+import ResetCode from './pages/resetCode.jsx';
 function App() {
   const user = React.useContext(UserDataContext);
   console.log('User: ', user);
@@ -61,6 +61,12 @@ function App() {
           path='/resetPass'
           element={
             <ResetPass />
+          }
+        />
+        <Route
+          path='/resetCode'
+          element={
+            <ResetCode />
           }
         />
         <Route path='/map' element={<Map />} /> {/* New route for the Map component */}

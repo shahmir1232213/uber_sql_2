@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 const UserForgotPass = () => {
     const [email, setEmail] = useState('');
@@ -9,8 +9,10 @@ const UserForgotPass = () => {
     async function getCode(e) {
         e.preventDefault(); 
         let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/forgot/email/verify`, { email });
-        console.log("response.data: ", response.data);
-        navigate('/resetPass', { state: { code: response.data } });
+       // console.log("response.data: ", response.data);
+        //navigate('/resetPass', { state: { code: response.data ,email:email} });
+        navigate('/resetCode', { state: { code: response.data ,email:email} });
+       //navigate('/resetCode', { state: {email:email} });
     }
 
     return (
@@ -33,7 +35,7 @@ const UserForgotPass = () => {
                 </div>
                 <button type='submit' className="loginButton">Send Code</button>
             </form>
-            <a href="/captinLogin" className="signAsCaptin">Sign in as Captin</a>
+            <Link to={'/userLogin'} className='signAsCaptin'>Remembered Credentials ?</Link>
         </div>
     );
 };
