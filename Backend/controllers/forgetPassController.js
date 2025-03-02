@@ -23,10 +23,9 @@ async function verifyEmail(req,res,next){
     
     if(user){
         let code = generateCode();
-        let message = `Dear ${user.fullName.firstName+' '+user.fullName.lastName},  
-
-        Your One-Time Password (OTP) for Walmart E-commerce is ${code}. Please use this code to complete your verification process.  
-        
+        let message = 
+        `Dear ${user.fullName.firstName+' '+user.fullName.lastName},  
+            Your One-Time Password (OTP) for Uber App is ${code}. Please use this code to complete your verification process.  
         This is an auto-generated email. Please do not reply to this message.` 
         await mailService(user.email,"Password Reset",message)
         req.code = code; 
