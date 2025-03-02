@@ -8,6 +8,16 @@
     font-weight: bold;
     color: white;
   }
+  .captin2_start{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color:#000000b4;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+  }
   .RidePopup {
     position: fixed;
     bottom: 0;

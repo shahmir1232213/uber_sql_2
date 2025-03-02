@@ -118,7 +118,7 @@ const Home = () => {
         const vehicleIcons = {
           Car: "/images/blackCar2.png",
           Auto: "/images/auto2.png",
-          MotorCycle: "/images/moto2.png"
+          MotorCycle: "/images/moto.png"
         };
   
         let locations = response.data.map(elem => ({

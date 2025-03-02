@@ -13,6 +13,8 @@ import UserLogout from './pages/UserLogout';
 import CaptinHome from './pages/captinHome.jsx';
 import CaptinRiding from './pages/captinRiding.jsx';
 import Map from './components/Map'; // Import the Map component
+import UserForgotPass from './pages/UserForgotPass.jsx';
+import ResetPass from './pages/ResetPass'
 
 function App() {
   const user = React.useContext(UserDataContext);
@@ -36,13 +38,29 @@ function App() {
         />
         <Route path='/user/logout' element={<UserLogout />} />
         <Route path='/captin/logout' element={<UserLogout />} />
-        <Route path='/captin-riding' element={<CaptinRiding />} />
+        <Route path='/captin-riding' element={
+          <IsLoggedInCaptin>
+            <CaptinRiding />
+          </IsLoggedInCaptin>
+        } />
         <Route
           path='/captinHome'
           element={
             <IsLoggedInCaptin>
               <CaptinHome />
             </IsLoggedInCaptin>
+          }
+        />
+        <Route 
+          path='/forgot-password'
+          element={
+            <UserForgotPass />
+          }  
+        />
+        <Route
+          path='/resetPass'
+          element={
+            <ResetPass />
           }
         />
         <Route path='/map' element={<Map />} /> {/* New route for the Map component */}

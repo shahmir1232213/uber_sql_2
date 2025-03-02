@@ -9,6 +9,7 @@ const captinRoutes = require('./routes/captinRoutes');
 const cors = require('cors');
 const mapRoutes = require('./routes/map_routes')
 const rideRoutes = require('./routes/rideRoutes')
+const forgetPassRouter = require("./routes/forgetPassRouter")
 
 app.use(cors());
 app.use(express.json())
@@ -20,5 +21,5 @@ app.use("/user",userRoutes)
 app.use('/captin',captinRoutes)
 app.use('/maps', mapRoutes);
 app.use('/rides',rideRoutes);
-
+app.use("/forgot",forgetPassRouter)
 module.exports = app;

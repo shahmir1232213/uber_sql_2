@@ -50,6 +50,7 @@ const userLogin = () => {
             <div className='passSection'>
                 <label>Enter password</label>
                 <input onChange={(e)=>{setPassword(e.target.value)}} value={password} type='password'/>
+               <Link to={'/forgot-password'}>Forgot Password</Link>
              </div>
             <button type='submit' className='loginButton'>
                   Login

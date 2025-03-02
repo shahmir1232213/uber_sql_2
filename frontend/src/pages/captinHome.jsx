@@ -31,7 +31,7 @@ const CaptinHome = () => {
     })
     if(response.status == 200 ){
       localStorage.clear('token')
-      navigate('/')
+         navigate('/')
       console.log("logout message from frontend")  
     }
   }

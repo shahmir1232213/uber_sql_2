@@ -28,7 +28,7 @@
     return (
     <div className='RidePopup'>
         <h1>Ride Started</h1>
-        <div className='captin2'>
+        <div className='captin2_start'>
             <div className='driver'>
                 <img src='/images/dp.jpeg' />
                 <p className='driv_name'>Shahmir</p>
@@ -63,14 +63,12 @@
         <button className='Ride Ignore'>Ignore</button> */}
         <div className='button-container'>
             {/* <Link to={'/captin-riding'} className='Ride'>Confirm </Link> */}
-            <button className='RideCancel' onClick={async ()=>{
+            {/* <button className='RideCancel' onClick={async ()=>{
                                                // SetCloseConfirmPopUpPannel(true)
-                                                await cancelRide()
-                                            }}>Cancel</button>
+                                                await cancelRide() */}
+                                            {/* }}>Cancel</button> */}
         </div>
-        {/* <div ref={startRef} style={{opacity:0}}>
-            <StartRide />
-        </div> */}
+
     </div>
   )
 }
