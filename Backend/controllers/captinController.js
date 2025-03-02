@@ -77,9 +77,27 @@ function home(req,res,next){
      return res.status(200).json(req.captin);
  
  }
+
+ async function setting(req,res,next){
+    let captins = await captinModel.find();
+    console.log("captin: ",captins)
+    return res.status(200).json(captins);
+    // let captins2 = await captinModel.findOneAndUpdate(
+    //     {_id:'67c414144ecd0ba1cbc751c0'},
+    //     {
+    //         $set:{
+    //             "location.latitude":24.8361159,
+    //             "location.longitude":67.0837996
+    //         }
+    //     },
+    //     {new:true}
+    // )
+    // console.log("captins after: ", captins2);
+  }
 module.exports = {
     register,
     login,
     logout,
-    home
+    home,
+    setting
 }

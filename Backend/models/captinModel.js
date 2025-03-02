@@ -45,7 +45,7 @@ let captinSchema = mongoose.Schema({
         capacity:{
             type:Number,
             required:true,
-            min:[2,'Minimum Capacity should be 3']
+            min:[2,'Minimum Capacity should be 2']
         },
         vehicleType:{
             type:String,

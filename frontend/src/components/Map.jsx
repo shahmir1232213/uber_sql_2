@@ -3,12 +3,12 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Import default marker images (for default Leaflet icon)
+// Default marker images
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-// Fix for default icon issues:
+// Fix default icon
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
@@ -16,17 +16,23 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-// Create a custom icon for the destination marker using pickup.png
-// Ensure pickup.png is placed in your public/images folder so it can be accessed at /images/pickup.png
-const destinationIcon = new L.Icon({
-  iconUrl: '/images/destination.png',
-  iconSize: [38, 38],     // Set the width and height (38px each)
-  iconAnchor: [21, 33],   // These values center the icon on the marker's location
-  popupAnchor: [0, -38]   // Adjust popup position relative to the icon if needed
-});
+// Custom icons configuration
+const icons = {
+  destination: new L.Icon({
+    iconUrl: '/images/destination.png',
+    iconSize: [55, 55],
+    iconAnchor: [27.5, 55],  // Center bottom anchor
+    popupAnchor: [0, -55]
+  }),
+  defaultVehicle: new L.Icon({
+    iconUrl: '/images/blackCar2.png',  // Updated car image
+    iconSize: [55, 55],
+    iconAnchor: [27.5, 55],  // Proper center alignment
+    popupAnchor: [0, -55]
+  })
+};
 
-const MapComponent = ({ pickUpCoordinates, destinationCoordinates }) => {
-  // Default center (Karachi) if no coordinates provided
+const MapComponent = ({ pickUpCoordinates, destinationCoordinates, captinsAr }) => {
   const defaultCenter = [24.8607, 67.0011];
   const position = pickUpCoordinates?.latitude && pickUpCoordinates?.longitude
     ? [pickUpCoordinates.latitude, pickUpCoordinates.longitude]
@@ -45,20 +51,41 @@ const MapComponent = ({ pickUpCoordinates, destinationCoordinates }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      {/* Pickup marker uses the default Leaflet icon */}
+      {/* Pickup Marker */}
       {position && (
         <Marker position={position}>
           <Popup>Pickup Location</Popup>
         </Marker>
       )}
 
-      {/* Destination marker uses the custom icon (pickup.png) */}
+      {/* Destination Marker */}
       {destination && (
-        <Marker position={destination} icon={destinationIcon}>
+        <Marker position={destination} icon={icons.destination}>
           <Popup>Destination</Popup>
         </Marker>
       )}
 
+      {/* Vehicle Markers */}
+      {captinsAr?.map((captain, index) => {
+        const vehicleIcon = new L.Icon({
+          iconUrl: captain.vehicleType || icons.defaultVehicle.options.iconUrl,
+          iconSize: [55, 55],
+          iconAnchor: [27.5, 55],
+          popupAnchor: [0, -55]
+        });
+
+        return (
+          <Marker
+            key={`captain-${index}`}
+            position={[captain.latitude, captain.longitude]}
+            icon={vehicleIcon}
+          >
+            <Popup>Captain {index + 1}</Popup>
+          </Marker>
+        );
+      })}
+
+      {/* Route Polyline */}
       {path.length > 0 && <Polyline positions={path} color="black" />}
     </MapContainer>
   );
