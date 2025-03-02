@@ -4,10 +4,14 @@ import './captinDetails.css';
 import './ridePopUp.css';
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+//import { UserSocketContext } from '../context/UserSocketContext'; 
+//import { useContext } from 'react';
 
 const RidePopUp = ({SetconfirmRidePannel,rideWithUser}) => {
    let navigate = useNavigate()
-    async function startRide(){
+//    let userNameSpace = useContext(UserSocketContext)
+//    console.log("User Socket Context:", userNameSpace);
+   async function startRide(){
         let rideId = rideWithUser._id;
         let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/start-ride`,{rideId},{
             headers:{
@@ -15,6 +19,9 @@ const RidePopUp = ({SetconfirmRidePannel,rideWithUser}) => {
             }
         })
         if(response.status == 200){
+            // let userSocketId = rideWithUser.user.socketId;
+            // console.log("user.socketId: ",userSocketId)
+            // userNameSpace.of(userSocketId).emit('ride-started')
             navigate('/captin-riding',{state:{rideWithUser}})
         }
     }

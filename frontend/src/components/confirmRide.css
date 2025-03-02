@@ -123,7 +123,9 @@
     /* border: 2px solid #000; */
     background: hsl(17, 93%, 55%);
     border: none;
-    color: #000;
+    color:white;
+    font-size: 1.1rem;
+    font-weight: bold;
     font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;

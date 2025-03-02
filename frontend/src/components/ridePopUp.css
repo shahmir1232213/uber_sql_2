@@ -1,10 +1,8 @@
 .captin2{
     display: flex;
-     /* border: 2px solid green;  */
     justify-content: space-between;
     padding: 1rem;
-    /* background-color: rgb(240, 171, 22); */
-    background-color:rgb(141, 133, 133);
+    background-color: rgb(255 196 71);
     border-radius: 1rem;
     font-size: 1.5rem;
     font-weight: bold;
@@ -72,7 +70,8 @@
 
 .Ignore{
     /* background-color: rgb(141, 133, 133); */
-    background-color: rgb(141, 133, 133);
+    /* background-color: rgb(141, 133, 133); */
+    background-color:hsl(17, 93%, 55%);
 
 }
 .point4{

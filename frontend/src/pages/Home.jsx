@@ -13,9 +13,9 @@ import GeoService from '../services/GeoService';
 import MapComponent from '../components/Map';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
-
+import StartRide from '../components/StartRide';
 const Home = () => {
-  /* asal main socket hai bus name 
+    /* asal main socket hai bus name 
    captin diya va don't confuse*/
    let navigate = useNavigate()
 
@@ -84,6 +84,30 @@ const Home = () => {
     console.log("destination: ",destination)
     console.log("pannel: ",pannel)
   }
+
+  /*              CHANGES          */
+  let startRef = useRef()
+  let [startPannel,SetStartPannel] = useState(false)
+  let userSocket = useContext(UserSocketContext)/* Ride Started for user */
+    useEffect(()=>{
+        userSocket.on('ride-started',()=>{
+            SetCloseConfirmPopUpPannel(true)
+            SetStartPannel(true)
+            console.log("ride started socket reached")
+          })
+
+    },[userSocket])
+    /*Ride Started Popup */
+    useEffect(() => {
+      if (startPannel) {
+        gsap.to(startRef.current, {
+          display: 'block',
+          duration: 0 // Instant update
+        })
+      }
+    }, [startPannel]);
+
+
 
   useEffect(() => {
     async function getCaptins() {
@@ -205,7 +229,8 @@ const Home = () => {
     }
     else if(selectionPannel==false) {
       gsap.to(confirmRef.current,{ 
-       display:'none'
+       display:'none',
+       opacity:0,
       }).then(()=>{
         gsap.to(vehicleRef.current,{
           //opacity:1,
@@ -365,6 +390,9 @@ useEffect(() => {
     <div ref={userPopConfirmRef} style={{display:'none'}}>
         <RidePickConfirm SetCloseConfirmPopUpPannel={SetCloseConfirmPopUpPannel} ride={ride}/>
     </div>
+       <div ref={startRef} style={{display:'none'}}>
+          <StartRide ride={ride} SetCloseConfirmPopUpPannel={SetCloseConfirmPopUpPannel} />
+        </div>
   </div>
  
   );

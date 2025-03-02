@@ -1,18 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import './confirmRide.css'
-import './captinDetails.css';
-import './ridePopUp.css'
-import {Link} from 'react-router-dom'
-import axios from 'axios'
-import { UserSocketContext } from '../context/UserSocketContext';
-import gsap from 'gsap';
+ import {React,useEffect,useRef,useState} from 'react'
 
-const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
+ const StartRide = ({ride,SetCloseConfirmPopUpPannel}) => {
     let [image,setImage] = useState(null);
-    // let userSocket = useContext(UserSocketContext)
-    // let startRef = useRef()
-    // let [startPannel,SetStartPannel] = useState(false)
-    
     useEffect(()=>{
     if(ride?.vehicleType == 'car'){
         setImage('/images/blackCar.png')
@@ -24,26 +13,6 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
         setImage('/images/moto2.png')
     }
     },[ride?.vehicleType])
-    
-    // /* Ride Started for user */
-    // useEffect(()=>{
-    //     userSocket.on('ride-started',()=>{
-    //         SetCloseConfirmPopUpPannel(true)
-    //         SetStartPannel(true)
-    //         console.log("ride started socket reached")
-    //       })
-
-    // },[userSocket])
-    // /*Ride Started Popup */
-    // useEffect(()=>{
-    //     if(startPannel){
-    //         gsap.to(startRef.current,{
-    //             opacity:1,
-    //             zIndex: 9999,
-    //         })
-    //     }
-        
-    // },[startPannel])
 
     async function cancelRide(rideId){
         let message = "cancelled by user";
@@ -58,7 +27,7 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
 
     return (
     <div className='RidePopup'>
-        <h1>Your Rider</h1>
+        <h1>Ride Started</h1>
         <div className='captin2'>
             <div className='driver'>
                 <img src='/images/dp.jpeg' />
@@ -95,7 +64,7 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
         <div className='button-container'>
             {/* <Link to={'/captin-riding'} className='Ride'>Confirm </Link> */}
             <button className='RideCancel' onClick={async ()=>{
-                                                SetCloseConfirmPopUpPannel(true)
+                                               // SetCloseConfirmPopUpPannel(true)
                                                 await cancelRide()
                                             }}>Cancel</button>
         </div>
@@ -106,4 +75,4 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
   )
 }
 
-export default RidePopUp
+export default StartRide

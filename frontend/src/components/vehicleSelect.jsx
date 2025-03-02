@@ -86,9 +86,9 @@ const VehicleSelect = ({ vhPannel, pan, select, vhDetails ,points}) => {
       {/* Autos */}
       <div
         className='vehicle'
-        onClick={() => handleVehicleSelect('Autos', '/images/auto.png',fare.auto,'auto')}
+        onClick={() => handleVehicleSelect('Autos', '/images/auto2.png',fare.auto,'auto')}
       >
-        <img src='/images/auto.png' alt='Autos' />
+        <img src='/images/auto2.png' alt='Autos' />
         <div className='details'>
           <p className='class'>Uber Auto</p>
           <p className='classPara'>Affordable Compact rides</p>

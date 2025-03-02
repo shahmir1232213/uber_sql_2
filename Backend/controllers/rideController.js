@@ -85,9 +85,12 @@ module.exports.startRide = async (req,res,next) => {
         return res.status(400).json({ errors: errors.array() });
     }
     const { rideId } = req.body;
-    console.log("start ride rideId: ",rideId)
+    //console.log("start ride rideId: ",rideId)
     let ride = await rideService.startRideService(rideId);
-    // console.log("started ride: ",ride)
+     console.log("started ride: ",ride)
+     userSocketId = ride.user.socketId;
+    let userNamespace = getUserNamespace()
+    userNamespace.to(userSocketId).emit('ride-started')
     return res.status(200).json(ride);
 }
 
