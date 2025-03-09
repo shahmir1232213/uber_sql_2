@@ -1,18 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './confirmRide.css'
 import './captinDetails.css';
 import './ridePopUp.css'
 const RidePopUp = ({setRidePannel,SetconfirmRidePannel,rideWithUser,confirmRide}) => {
-  return (
+//   useEffect(()=>{
+//     console.log("confirmRide: ",rideWithUser)
+//   })
+    return (
     <div className='RidePopup'>
         <h1>New Ride Available</h1>
-        <div className='captin2'>
-            <div className='driver'>
-                <img src='/images/dp.jpeg' />
-                <p className='driv_name'>Shahmir</p>
-            </div>
-                <p>600 $</p>
-            </div>  
         <i
             className='icon ri-arrow-down-wide-line point3'
             onClick={() => {

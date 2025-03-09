@@ -12,7 +12,9 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
     // let userSocket = useContext(UserSocketContext)
     // let startRef = useRef()
     // let [startPannel,SetStartPannel] = useState(false)
-    
+    useEffect(()=>{
+        console.log("ride: ",ride)
+    })
     useEffect(()=>{
     if(ride?.vehicleType == 'car'){
         setImage('/images/blackCar.png')
@@ -62,7 +64,7 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
         <div className='captin2'>
             <div className='driver'>
                 <img src='/images/dp.jpeg' />
-                <p className='driv_name'>Shahmir</p>
+                <p className='driv_name'>{ride?.captin.fullName.firstName}</p>
                 <p className='driv_plate'>{ride?.captin.vehicle.plate}</p>
             </div>
             <div className='driverCar'>

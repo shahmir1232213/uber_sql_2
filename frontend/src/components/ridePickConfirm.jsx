@@ -28,13 +28,6 @@ const RidePopUp = ({SetconfirmRidePannel,rideWithUser}) => {
   return (
     <div className='RidePopup'>
         <h1>Confirm Ride</h1>
-        <div className='captin2'>
-            <div className='driver'>
-                <img src='/images/dp.jpeg' />
-                <p className='driv_name'>Shahmir</p>
-            </div>
-                <p>600 $</p>
-            </div>  
         <i
             className='icon ri-arrow-down-wide-line point3'
             onClick={() => {
