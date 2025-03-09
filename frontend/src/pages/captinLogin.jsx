@@ -8,9 +8,10 @@ const captinLogin = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const {captin,setCaptin} = React.useContext(CaptinContext)
-  useEffect(()=>{
-    console.log("captin useeffect: ",captin)
-  })
+    const [error,setError] = useState('')
+    useEffect(()=>{
+        console.log("captin useeffect: ",captin)
+    })
     async function submitHandler(e){
         e.preventDefault();
         console.log("email: ",email)
@@ -20,16 +21,21 @@ const captinLogin = () => {
             password
         }
         const baseUrl = import.meta.env.VITE_BASE_URL;
+        try{
         let response = await axios.post(`${baseUrl}/captin/login`,InputCaptin)
-        if(response.status == 200){
             navigate('/captinHome')
             console.log("response: ",response)
             setCaptin(response.data.loggedIncaptin)
             localStorage.setItem('token',response.data.token)
         }
-
+        catch(err){
+            console.log("err.response.data.error: ",err.response.data.error)
+            setError(err.response.data.error)
+        }
     }
-  
+//   useEffect(()=>{
+//     console.log("Error: ",error)
+//   },[error])
     return (
     <div id='log'>
         <div className='uberLogo'>
@@ -44,6 +50,7 @@ const captinLogin = () => {
                 <label>Enter password</label>
                 <input onChange={(e)=>{setPassword(e.target.value)}} value={password} type='password'/>
              </div>
+             {error && <p>{error}</p>}
             <button type='submit' className='loginButton'>
                   Login
             </button>
