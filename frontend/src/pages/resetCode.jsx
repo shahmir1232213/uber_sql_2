@@ -4,13 +4,19 @@ import axios from 'axios';
 
 const ResetCode = () => {
   const [code, setCode] = useState('');
+  const [error,setError] = useState('');
   let location = useLocation();
   let navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
     let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/forgot/code/verify`,{code:location.state?.code,input:code})
-    if(response.data.status == 200){
+//if(response.data.status == 200){
         navigate('/resetPass', { state: {email:location.state.email} });
+    }
+    catch(err){
+      console.log("err.response.message: ",err.response.data.message)
+      setError(err.response.data.message)
     }
 };
 
@@ -30,7 +36,8 @@ const ResetCode = () => {
             onChange={(e) => setCode(e.target.value)}  
           />
         </div>
-        <p>We have sent a code to your email address</p>
+        {error ? <p>{error}</p>:<p>We have sent a code to your email address</p>}
+        
         <button type="submit" className="loginButton">Submit</button>
       </form>
       <Link to={'/userLogin'} className='signAsCaptin'>Remembered Credentials ?</Link>
