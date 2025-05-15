@@ -1,0 +1,44 @@
+.completeRideMin{
+    width: 100vw;
+    height: 20vh;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+}
+.completeRide{
+    /* border: 2px solid red; */
+    width: 100vw;
+    height: 20vh;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+   
+    padding: 1.5rem;
+    background-color: rgb(255, 219, 58);
+    text-align: center;
+  }
+  .completeButton {
+    background-color: #3b990fb4;
+    width: 11rem;
+    height: 2.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+}
+.distanceAway{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.completeDetails{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+    width: 21rem;
+}
+.poinUp {
+    position: relative;
+    top: -1rem;
+    font-size: 1.2rem;
+}

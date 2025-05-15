@@ -1,0 +1,91 @@
+.captin2{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: rgb(255 196 71);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  .captin2_start{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color:#000000b4;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  .RidePopup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 72vh; /* Use min-height instead of height */
+    background-color: white;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* This ensures space is distributed */
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allows scrolling if content exceeds the container */
+  }
+  
+  .Detailsxx {
+    width: 100%;
+    height: 5rem;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align text to the left */
+    padding: 0.5rem;
+    border: 0.1px solid #000;
+    border-radius: 4px;
+    background: #fff;
+    margin-bottom: 0rem;
+    margin-top: 1rem;
+    box-sizing: border-box;
+    padding-left: 2rem;
+}
+
+.location {
+    font-weight: bold; /* Make location text bold */
+    margin-bottom: 0; /* Remove any bottom margin */
+}
+
+.Detailsxx p {
+    margin: 0; /* Remove default margins for all <p> elements inside Detailsxx */
+}
+
+.Ride {
+    display: block; /* or inline-block */
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem;
+    background: #329703b4;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+    height: 3rem;
+}
+
+.Ignore{
+    /* background-color: rgb(141, 133, 133); */
+    /* background-color: rgb(141, 133, 133); */
+    background-color:hsl(17, 93%, 55%);
+
+}
+.point4{
+    position: relative;
+    right: 1.5rem;
+    top: 1.2rem;
+}

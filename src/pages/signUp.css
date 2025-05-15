@@ -1,0 +1,109 @@
+html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#log{
+    /* display: flex;
+    justify-content: space-around;
+    flex-direction: column; */
+    /* border: 2px solid red; */
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+.uberLogo{
+    /* border: 2px solid red; */
+    width: 100vw;
+    height: 10vh;
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+.uberLogo img{
+    width: 5rem;
+    height: 2rem;
+}
+label {
+    font-size: 1.2rem; /* Increased label font size */
+    display: block;
+    margin-bottom: 10px;
+    font-family: 'Arial';
+    font-weight: bold;
+}
+
+input {
+    font-size: 1.1rem; /* Increased input text size */
+    width: 100%;
+    height: 2.5rem;
+    margin-left: -1px;
+    font-family: 'Arial';
+    background-color: rgb(231, 230, 230);
+    border-radius: 5px;
+}
+
+.loginForm {
+    /* border: 2px solid yellow; */
+    width: 100%;
+    height: 50vh;
+    box-sizing: border-box;
+    padding: 1.5rem;  /* ✅ Ensures border fits inside width */
+}
+.emailSection{
+    margin-bottom: 1rem;
+}
+.passSection{
+    margin-bottom: 1rem;
+}
+.loginButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 100%;
+    height: 2.7rem;
+    background-color: black;
+    font-size: 1.1rem;
+    border-radius: 5px;
+}
+/* .loginButton, .signAsCaptin,.signAsUser{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 100%;
+    height: 2.7rem;
+    background-color: black;
+    font-size: 1.1rem;
+    border-radius: 5px;
+} */
+p{
+    text-align: center;
+    font-size: 1.2rem;
+}
+.signAsUser {
+    position: absolute;
+    bottom: 1rem;
+    left: 3%;
+    width: 94vw;
+    background-color: rgb(80, 158, 80) ;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+/* .signAsCaptin,.signAsUser {
+    position: absolute;
+    bottom: 1rem;
+    left: 3%;
+    width: 94vw;
+    background-color: rgb(80, 158, 80) ;
+    box-sizing: border-box;
+    text-decoration: none;
+} */
+.signAsUser{
+    background-color: rgb(209, 137, 2);
+    font-weight: bolder;
+    font-size: larger;
+}
+.name{
+    margin-bottom: 1rem;
+}

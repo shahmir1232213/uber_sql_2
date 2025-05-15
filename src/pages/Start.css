@@ -1,0 +1,59 @@
+html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.mainHome {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    /* border: 2px solid pink; */
+    position: relative;
+    background-image: url("/images/uber.jpg"); /* Correct path */
+    background-size: cover;
+    background-position: center 20%; /* Moves the image slightly down */
+}
+
+h2 {
+    width: calc(100% - 2rem);
+    /* border: 2px solid blue; */
+    height: 3rem;
+    font-size: 2rem;
+    margin: 0;
+    padding: 0 1rem; /* Add padding for better spacing */
+}
+.button {
+    display: inline-block; /* Ensures it behaves like a button */
+    width: calc(100% - 0.1rem);
+    height: 3rem;
+    /* border: 2px solid red; */
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    text-align: center; /* Centers text inside */
+    line-height: 3rem; /* Matches height for vertical centering */
+    text-decoration: none; /* Removes default underline */
+}
+
+
+.mainHome img {
+    width: 4rem;
+    height: 2rem;
+    /* border: 2px solid green; */
+    padding-left: 1rem;
+    padding-top: 1.5rem;
+}
+
+.footerText { 
+    width: 100%;
+    /* border: 2px solid red; */
+    background-color: white;
+    color: black;
+    padding: 1rem;
+    box-sizing: border-box; /* Ensures padding does not overflow */
+}

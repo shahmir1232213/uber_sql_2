@@ -1,0 +1,22 @@
+
+ h3,h4 {
+    margin: 0; /* Removes default margins */
+    padding: 0; /* Ensures no extra spacing */
+    line-height: 1; /* Ensures tight spacing */
+}
+.loc {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    height: 4rem;
+    justify-content: center;
+}
+.point {
+    position: absolute;
+    left:-30px; /* Adjust as needed */
+    top: 50%; /* Centers vertically */
+    transform: translateY(-50%);
+    font-size: 24px;
+}
