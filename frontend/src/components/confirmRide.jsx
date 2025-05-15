@@ -23,7 +23,7 @@ const ConfirmRide = ({vhDetails,select,select2,points}) => {
     console.log("vhDetails from confirm: ",vhDetails.vhDetails.vehicleImage)
   })
   return (
-    <div className='confirmRide'>
+    <div className='box'>
         <h1>Confirm your ride</h1>
       <i
         className='icon ri-arrow-down-wide-line point3'

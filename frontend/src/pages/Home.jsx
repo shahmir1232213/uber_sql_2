@@ -161,102 +161,182 @@ const Home = () => {
   }, [destination]);
 
 
-/*Location Pannel*/
-  useEffect(() => {
-    if (pannel == true) {
-      gsap.to(pannelRef.current, {
-        height: '60vh',
-        
-        visibility: 'visible',
-      });
-      gsap.to(pannelClose.current,{
-        display:'block',
-      })
-    } else {
-      gsap.to(pannelClose.current,{
-        display:'none'
-      })
-      gsap.to(pannelRef.current, {
-        height: '0px',
-        duration: 0.5,
-        ease: "power2.out",
-        visibility:'hidden'
-      });
-     
-    }
-  }, [pannel],[pannelClose]);
+/* Location Panel */
+useEffect(() => {
+  if (pannel) {
+    gsap.to(pannelRef.current, {
+      height: '57vh',
+      onStart: () => {
+        pannelRef.current.style.visibility = 'visible';
+      }
+    });
 
+    gsap.set(pannelClose.current, {
+      display: 'block'
+    });
+  } else {
+    gsap.to(pannelRef.current, {
+      height: 0,
+      onComplete: () => {
+        pannelRef.current.style.visibility = 'hidden';
+      }
+    });
+
+    gsap.set(pannelClose.current, {
+      display: 'none'
+    });
+  }
+}, [pannel]);
 
 /*Vehicle Selection pannel*/
-  useEffect(()=>{
-      if(vehiclePannel){
-        gsap.to(vehicleRef.current,{
-          display:'block'
-        })
-        gsap.to(pannelRef.current,{
-          height:0,
-          //display:'none',
-          onComplete:()=>{
-            setPannel(false)
-            console.log("pannel: ",pannel)
-          }
-        })
+useEffect(() => {
+  if (vehiclePannel) {
+    // Hide "Find a Trip" panel
+    gsap.to(pannelRef.current, {
+      height: 0,
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        gsap.set(pannelRef.current, {
+          visibility: 'hidden',
+          display: 'none'
+        });
       }
-      else{
-        gsap.to(vehicleRef.current,{
-          display:'none'
-        }).then(()=>{
-          gsap.to(formRef.current, {
-         // height:'auto'
-          display:'block'
-          
-        })})
-      }
-    },[vehiclePannel])  
+    });
 
-   useEffect(()=>{
-    if(selectionPannel){
-      gsap.to(vehicleRef.current,{
-        //opacity:0,
-        display:'none'
-      }).then(()=>{
-      gsap.to(confirmRef.current,{
-        display:'block',
-         onComplete:()=>{ 
-          setVehiclePannel(false)
-         }
-      })})
-    }
-    else if(selectionPannel==false) {
-      gsap.to(confirmRef.current,{ 
-       display:'none',
-       opacity:0,
-      }).then(()=>{
-        gsap.to(vehicleRef.current,{
-          //opacity:1,
-          display:'block'
-        })
-      })
-    }
-  },[selectionPannel])  
+    // Show vehicle panel
+    gsap.set(vehicleRef.current, {
+      visibility: 'visible',
+      display: 'block'
+    });
+
+    gsap.fromTo(vehicleRef.current,
+      { height: 0, opacity: 0 },
+      { height: '50vh', opacity: 1, duration: 0.5 }
+    );
+  } else {
+    // Hide vehicle panel and show "Find a Trip" panel
+    gsap.to(vehicleRef.current, {
+      height: 0,
+      opacity: 0,
+      duration: 0.5,
+      onComplete: () => {
+        gsap.set(vehicleRef.current, {
+          visibility: 'hidden',
+          display: 'none'
+        });
+
+        // Show "Find a Trip" panel
+        gsap.to(pannelRef.current, {
+          height: '57vh',
+          onStart: () => {
+            pannelRef.current.style.visibility = 'visible';
+          }
+        });
+
+        gsap.set(pannelClose.current, {
+          display: 'block'
+        });
+      }
+    });
+  }
+}, [vehiclePannel]);
 
 /*Looking pannel*/
-useEffect(()=>{
-  if(selectionPannel_2){
-    gsap.to(confirmRef.current,{
-     height:'0'
-    }).then(()=>{
-      gsap.to(lookingPannelRef.current,{
-        display:'block',
-      })  
-    })
+useEffect(() => {
+  if (selectionPannel) {
+    // Hide vehicle panel first
+    gsap.to(vehicleRef.current, {
+      height: 0,
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        gsap.set(vehicleRef.current, {
+          display: 'none',
+          visibility: 'hidden'
+        });
+
+        // Then show ConfirmRide panel
+        gsap.set(confirmRef.current, {
+          display: 'block',
+          visibility: 'visible'
+        });
+
+        gsap.fromTo(confirmRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 }
+        );
+      }
+    });
+  } else {
+    // Hide ConfirmRide panel and show vehicle panel
+    gsap.to(confirmRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        gsap.set(confirmRef.current, {
+          display: 'none',
+          visibility: 'hidden'
+        });
+
+        // Show vehicle panel
+        gsap.set(vehicleRef.current, {
+          visibility: 'visible',
+          display: 'block'
+        });
+
+        gsap.fromTo(vehicleRef.current,
+          { height: 0, opacity: 0 },
+          { height: '50vh', opacity: 1, duration: 0.5 }
+        );
+      }
+    });
   }
-  else if(selectionPannel_2==false) {
-    gsap.to(lookingPannelRef.current,{
-      display:'none',
-    })
+}, [selectionPannel]);
+
+
+/* Confirm Ride Panel Logic */
+useEffect(() => {
+  if (selectionPannel_2) {
+    // Hide Vehicle Selection panel
+    gsap.to(vehicleRef.current, {
+      height: 0,
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        gsap.set(vehicleRef.current, {
+          display: 'none',
+          visibility: 'hidden',
+        });
+      },
+    });
+
+    // Show Nearby Riders panel
+    gsap.set(lookingPannelRef.current, {
+      display: 'block',
+      visibility: 'visible',
+    });
+
+    gsap.fromTo(
+      lookingPannelRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5 }
+    );
+  } else {
+    // Hide Nearby Riders panel
+    gsap.to(lookingPannelRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        gsap.set(lookingPannelRef.current, {
+          display: 'none',
+          visibility: 'hidden',
+        });
+      },
+    });
   }
-},[selectionPannel_2])
+}, [selectionPannel_2]);
+
 /*Completed Looking pannel */
   useEffect(() => {
     if (pickup === '') {
@@ -268,32 +348,7 @@ useEffect(()=>{
   }, [pickup, destination]);
 
 /*Ride Pop Up Confirm User Pannel */
-useEffect(()=>{
-  if(confirmPopUpPannel == true){
-    gsap.to(userPopConfirmRef.current,{
-      display:'block'
-    }).then(()=>{
-      gsap.to(lookingPannelRef.current,{
-        display:'none',
-      })
-      SetCloseConfirmPopUpPannel(false)
-    })
-  }
-  else{
-    gsap.to(userPopConfirmRef.current,{
-      display:'none'
-    })
-  }
-},[confirmPopUpPannel])
-/*             */
-useEffect(()=>{
-  if(CloseConfirmPopUpPannel == true){
-    gsap.to(userPopConfirmRef.current,{
-      display:'none'
-    })
-    SetconfirmPopUpPannel(false)
-  }
-})
+
 /*Ride confirmation from captin*/ 
 useEffect(()=>{
   if(socket){
@@ -327,40 +382,73 @@ useEffect(() => {
           <i class="ri-booklet-line"></i>
         </div>
       </div>
- 
-
-    {/* Booking Form */}
-    <form ref={formRef} className='bookRide' onSubmit={(e) => submitHandler(e)}>
-      <div className='find'>
-        <h2 className='fidText'>Find a ride</h2>
-        <i ref={pannelClose} className='icon ri-arrow-down-wide-line' onClick={() => setPannel(false)} style={{ display: 'none' }}></i>
-      </div>
-      <div className='line'></div>
-      <input value={pickup} onChange={(e) => {
-                                setPickup(e.target.value)
-                                setSearch(e.target.value)
-                              }
-      } onClick={() => setPannel(true)} placeholder="Add a pickup location" />
-      <input value={destination} onChange={(e) => {
-                                    setDestination(e.target.value)
-                                    setSearch(e.target.value)
-                                  }
-      } onClick={() => setPannel(true)} placeholder="Enter your destination" />
-      <button className='findAtrip' type='submit' onClick={()=>{setVehiclePannel(true)}}>
-        Find A Trip
-      </button>
-      <div ref={pannelRef} className='scroll'>
-        <LocationSearch vhPannel={{ 
-          vehiclePannel,setVehiclePannel,
-          search,setSearch,
-          pickup,setPickup,
-          destination,setDestination,
-          f1,setf1,
-          f2,setf2
-        }}/>
-      </div>
-    </form>
-
+ {/* Booking Form */}
+<form ref={formRef} className='bookRide' onSubmit={(e) => submitHandler(e)}>
+  <div className='find'>
+    <h2 className='fidText'>Find a ride</h2>
+    <i
+      ref={pannelClose}
+      className='icon ri-arrow-down-wide-line'
+      onClick={() => setPannel(false)} // Close LocationSearch when this icon is clicked
+      style={{ display: pannel ? 'block' : 'none' }} // Show only when pannel is open
+    ></i>
+  </div>
+  <div className='line'></div>
+  <input
+    value={pickup}
+    onChange={(e) => {
+      setPickup(e.target.value);
+      setSearch(e.target.value);
+    }}
+    onClick={() => {
+      setPannel(true); // Open LocationSearch when pickup input is clicked
+    }}
+    placeholder="Add a pickup location"
+  />
+  <input
+    value={destination}
+    onChange={(e) => {
+      setDestination(e.target.value);
+      setSearch(e.target.value);
+    }}
+    onClick={() => {
+      setPannel(true); // Open LocationSearch when destination input is clicked
+    }}
+    placeholder="Enter your destination"
+  />
+  <button
+    className='findAtrip'
+    type='submit'
+    onClick={() => {
+      if (pickup && destination) {
+        setVehiclePannel(true); // Show vehicle panel
+        setPannel(false); // Hide LocationSearch
+      } else {
+        alert("Please enter both pickup and destination locations.");
+      }
+    }}
+  >
+    Find A Trip
+  </button>
+  {pannel && ( // Only render LocationSearch when pannel is true
+    <div ref={pannelRef} className='scroll'>
+      <LocationSearch
+        vhPannel={{
+          search,
+          setSearch,
+          pickup,
+          setPickup,
+          destination,
+          setDestination,
+          f1,
+          setf1,
+          f2,
+          setf2,
+        }}
+      />
+    </div>
+  )}
+</form>
     {/* Vehicle Selection */}
     <div ref={vehicleRef} style={{display: 'none' }}>
       <VehicleSelect

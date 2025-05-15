@@ -26,26 +26,6 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
         setImage('/images/moto2.png')
     }
     },[ride?.vehicleType])
-    
-    // /* Ride Started for user */
-    // useEffect(()=>{
-    //     userSocket.on('ride-started',()=>{
-    //         SetCloseConfirmPopUpPannel(true)
-    //         SetStartPannel(true)
-    //         console.log("ride started socket reached")
-    //       })
-
-    // },[userSocket])
-    // /*Ride Started Popup */
-    // useEffect(()=>{
-    //     if(startPannel){
-    //         gsap.to(startRef.current,{
-    //             opacity:1,
-    //             zIndex: 9999,
-    //         })
-    //     }
-        
-    // },[startPannel])
 
     async function cancelRide(rideId){
         let message = "cancelled by user";
@@ -59,7 +39,7 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
     }
 
     return (
-    <div className='RidePopup'>
+    <div className='box'>
         <h1>Your Rider</h1>
         <div className='captin2'>
             <div className='driver'>
@@ -74,7 +54,8 @@ const RidePopUp = ({ride,SetCloseConfirmPopUpPannel}) => {
         <i
             className='icon ri-arrow-down-wide-line point3'
             onClick={() => {
-                SetCloseConfirmPopUpPannel(true)
+              //  SetCloseConfirmPopUpPannel(true)
+              SetSelectionPannel(false)
             }}
         ></i> 
         <div className='Detailsxx'>

@@ -29,7 +29,7 @@ const RidePopUp = ({SetconfirmRidePannel,rideWithUser}) => {
     <div className='RidePopup'>
         <h1>Confirm Ride</h1>
         <i
-            className='icon ri-arrow-down-wide-line point3'
+            className='icon ri-arrow-down-wide-line point3 '
             onClick={() => {
                 SetconfirmRidePannel(false)
             }}

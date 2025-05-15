@@ -2,7 +2,6 @@
     /* border: 2px solid red; */
     width: 100vw;
      height: 57vh; 
-  
     position: absolute;
     right: 0;
     bottom: 0;
@@ -60,11 +59,13 @@
     font-size: 1rem;
     font-weight: bold;
   }
-  .vehicleChose{
-    margin-bottom: 2rem;
-  }
+ 
   .point2 {
     position: absolute;
-    left: 21rem;
+    left: 21.5rem;
     top: 2rem;
+  }
+  .vehicleCloseArrorw{
+    /* border: 2px solid red; */
+    margin-left: 2rem;
   }
