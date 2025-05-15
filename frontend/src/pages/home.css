@@ -115,3 +115,8 @@ html, body {
   width: 100%; /* Ensure it spans the full width of the container */
   box-sizing: border-box;
 }
+.point3 {
+  /* border: 2px solid red;  */
+  margin-left: 35px; 
+  margin-top: -8px;
+}

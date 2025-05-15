@@ -6,7 +6,7 @@ const NearbyRiders = ({vhDetails,select2,points}) => {
     <div className='box'>
         <h1>Looking for nearby {vhDetails.vehicleName}</h1>
       <i
-        className='icon ri-arrow-down-wide-line point3 vehicleCloseArrorw'
+        className='icon ri-arrow-down-wide-line point3 vehicleCloseArrorw '
         onClick={() => {
           select2.SetSelectionPannel_2(false)
           //lookingPannel.SetlookingPannel(false)
