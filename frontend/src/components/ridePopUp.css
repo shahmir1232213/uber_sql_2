@@ -18,22 +18,6 @@
     font-weight: bold;
     color: white;
   }
-  .RidePopup {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    min-height: 72vh; /* Use min-height instead of height */
-    background-color: white;
-    /* border: 2px solid red; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* This ensures space is distributed */
-    padding: 1rem;
-    box-sizing: border-box;
-    overflow-y: auto; /* Allows scrolling if content exceeds the container */
-  }
-  
   .Detailsxx {
     width: 100%;
     height: 5rem;
@@ -84,8 +68,8 @@
     background-color:hsl(17, 93%, 55%);
 
 }
-.point4{
-    position: relative;
-    right: 1.5rem;
-    top: 1.2rem;
+.point3{
+  /* border: 2px solid red; */
+  margin-left: 2.8rem;
+  top:1.5rem;
 }
