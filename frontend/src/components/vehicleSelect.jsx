@@ -59,10 +59,10 @@ const VehicleSelect = ({ vhPannel, pan, select, vhDetails ,points}) => {
   return (
     <div className='vehicleSelect'>
       <i
-        className='icon ri-arrow-down-wide-line point2'
+        className='icon ri-arrow-down-wide-line point2 vehicleCloseArrorw'
         onClick={() => {
           vhPannel.setVehiclePannel(false);
-          pan.setPannel(false);
+          //pan.setPannel(false);
         }}
       ></i>
       <h1 className='vehicleChose'>Choose Ride</h1>

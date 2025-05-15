@@ -3,10 +3,10 @@ import './NearBy.css'
 
 const NearbyRiders = ({vhDetails,select2,points}) => {
   return (
-    <div className='nearbyRide'>
+    <div className='box'>
         <h1>Looking for nearby {vhDetails.vehicleName}</h1>
       <i
-        className='icon ri-arrow-down-wide-line point3'
+        className='icon ri-arrow-down-wide-line point3 vehicleCloseArrorw'
         onClick={() => {
           select2.SetSelectionPannel_2(false)
           //lookingPannel.SetlookingPannel(false)

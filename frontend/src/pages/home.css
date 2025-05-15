@@ -79,7 +79,7 @@ html, body {
   
 }
 .findAtrip{
-  width: 21rem;
+  width: 23rem;
   height: 3rem;
   margin-top: 0.5rem;
   margin-left: 0.2rem;
@@ -87,5 +87,31 @@ html, body {
   color: white;
   border-radius: 7px;
   font-weight: bold;
+}
+.box{
+   /* Keep existing positioning and layout */
+   width: 100vw;
+   height: auto; /* Ensure height adjusts to content */
+   position: absolute;
+   right: 0;
+   bottom: 0;
+   box-sizing: border-box;
+   padding: 10px; /* Add padding from all sides */
+   padding-top: 20px;
+   margin: 0; /* Remove unnecessary margin */
+   background: #fff;
+   color: #000;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start; /* Align content at the top */
+   align-items: center;
+   overflow: hidden; 
 
+}
+.box h1{
+  text-align: left; /* Align text to the left */
+  margin: 0; /* Remove any default margins */
+  padding: 0; /* Remove any default padding */
+  width: 100%; /* Ensure it spans the full width of the container */
+  box-sizing: border-box;
 }
