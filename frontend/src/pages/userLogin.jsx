@@ -23,8 +23,14 @@ const userLogin = () => {
         const baseUrl = import.meta.env.VITE_BASE_URL;
        try{
         const response = await axios.post(`${baseUrl}/user/login`,newUser)
-            console.log("respons Login: ",response.data)
-            setUser(newUser);
+            console.log("respons Login user bhaiya : ",response.data)
+            setUser(response.data.loggedInUser);
+            try{
+                console.log("user from login: ",user)
+            }
+            catch(err){
+                console.log("error setting usercontext: ",err)
+            }
             localStorage.setItem('token',response.data.token)
             console.log("response.token: ",response.data.token)
             navigate('/home')

@@ -1,76 +1,67 @@
- import {React,useEffect,useRef,useState} from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
- const StartRide = ({ride,SetCloseConfirmPopUpPannel}) => {
-    let [image,setImage] = useState(null);
-    useEffect(()=>{
-    if(ride?.vehicleType == 'car'){
-        setImage('/images/blackCar.png')
-    }
-    else if(ride?.vehicleType == 'auto'){
-        setImage('/images/auto2.png')
-    }
-    else{
-        setImage('/images/moto2.png')
-    }
-    },[ride?.vehicleType])
+const StartRide = ({ ride, SetCloseConfirmPopUpPannel }) => {
+    const [image, setImage] = useState(null);
+    useEffect(() => {
+        console.log("Ride at Start Ride:", ride);
+    }, [ride?.RIDE_ID]);
+    useEffect(() => {
+        if (ride?.VEHICLE_TYPE === 'car') {
+            setImage('/images/blackCar.png');
+        } else if (ride?.VEHICLE_TYPE === 'auto') {
+            setImage('/images/auto2.png');
+        } else {
+            setImage('/images/moto2.png');
+        }
+    }, [ride?.VEHICLE_TYPE]);
 
-    async function cancelRide(rideId){
+    async function cancelRide() {
         let message = "cancelled by user";
-        let rideID = ride._id;
-        let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/cancel`,{rideID,message},
-        {
-            headers:{
-                Authorization:`Bearer ${localStorage.getItem('token')}`
+        let rideID = ride?.RIDE_ID;
+        await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/cancel`, { rideID, message }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
-        }) 
+        });
+        SetCloseConfirmPopUpPannel(true);
     }
 
     return (
-    <div className='RidePopup'>
-        <h1>Ride Started</h1>
-        <div className='captin2_start'>
-            <div className='driver'>
-                <img src='/images/dp.jpeg' />
-                <p className='driv_name'>Shahmir</p>
-                <p className='driv_plate'>{ride?.captin.vehicle.plate}</p>
+        <div className='RidePopup'>
+            <h1>Ride Started</h1>
+            <div className='captin2_start'>
+                <div className='driver'>
+                    <img src='/images/dp.jpeg' alt="Driver" />
+                    <p className='driv_name'>{ride?.CAPTIN_NAME}</p>
+                    {/* If you have plate info, add it here */}
+                </div>
+                <div className='driverCar'>
+                    {image ? <img src={image} alt="Vehicle" /> : null}
+                </div>
             </div>
-            <div className='driverCar'>
-                {image? <img src={image}  /> : null}
+            <i
+                className='icon ri-arrow-down-wide-line point3'
+                onClick={() => SetCloseConfirmPopUpPannel(true)}
+            ></i>
+            <div className='Detailsxx'>
+                <i className="ri-map-pin-line point4"></i>
+                <p className='location'>{ride?.PICKUP}</p>
             </div>
-        </div>  
-        <i
-            className='icon ri-arrow-down-wide-line point3'
-            onClick={() => {
-                SetCloseConfirmPopUpPannel(true)
-            }}
-        ></i> 
-        <div className='Detailsxx'>
-        <i class="ri-map-pin-line point4"></i>
-            <p className='location'>{ride?.pickup}</p>
-            {/* <p>street 17D</p> */}
+            <div className='Detailsxx'>
+                <i className="ri-map-pin-2-fill point4"></i>
+                <p className='location'>{ride?.DESTINATION}</p>
+            </div>
+            <div className='Detailsxx'>
+                <i className="ri-cash-line point4"></i>
+                <p className='location'>{ride?.FARE} PKR</p>
+                <p>Cash</p>
+            </div>
+            <div className='button-container'>
+                <button className='RideCancel' onClick={cancelRide}>Cancel</button>
+            </div>
         </div>
-        <div className='Detailsxx'>
-        <i class="ri-map-pin-2-fill point4"></i>
-            <p className='location'>{ride?.destination}</p>
-            {/* <p>street 17D</p> */}
-        </div>
-        <div className='Detailsxx'>
-        <i class="ri-cash-line point4"></i>
-            <p className='location'>{ride?.fare} PKR</p>
-            <p>Cash</p>
-        </div>
-        {/* <button className='Ride Confirm'>Confirm</button>
-        <button className='Ride Ignore'>Ignore</button> */}
-        <div className='button-container'>
-            {/* <Link to={'/captin-riding'} className='Ride'>Confirm </Link> */}
-            {/* <button className='RideCancel' onClick={async ()=>{
-                                               // SetCloseConfirmPopUpPannel(true)
-                                                await cancelRide() */}
-                                            {/* }}>Cancel</button> */}
-        </div>
-
-    </div>
-  )
+    )
 }
 
 export default StartRide

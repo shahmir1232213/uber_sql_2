@@ -11,9 +11,9 @@ const RidePopUp = ({SetconfirmRidePannel,rideWithUser}) => {
    let navigate = useNavigate()
 //    let userNameSpace = useContext(UserSocketContext)
 //    console.log("User Socket Context:", userNameSpace);
+//console.log("rideWithUser at RidePopUp: ", rideWithUser)
    async function startRide(){
-        let rideId = rideWithUser._id;
-        let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/start-ride`,{rideId},{
+        let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/start-ride`,{rideWithUser},{
             headers:{
                 Authorization:`Bearer ${localStorage.getItem('token')}`
             }

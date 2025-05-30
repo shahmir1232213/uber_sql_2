@@ -1,23 +1,33 @@
 const jwt = require("jsonwebtoken");
-const captinModel = require("../models/captinModel");
-const blackListTokenModel = require("../models/blackListTokenSchema");
+const sql = require('mssql/msnodesqlv8');
 
-async function isLoggedInCaptin(req,res,next){
+async function isLoggedInCaptin(req, res, next) {
     const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
-    if(!token){
-        return res.status(401).json({message:'Unauthorized'})
+    if (!token) {
+        return res.status(401).json({ message: 'Token not found' });
     }
-    let isBlackListed = await blackListTokenModel.findOne({token:token})
-    if(!isBlackListed){
-        const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY);
-        const captin = await captinModel.findById(decoded._id);
-        //console.log("from bakcend captin: ",captin)
-        req.captin = captin;
-        
-        return next();
+    try {
+        // Check if token is blacklisted
+        let isBlackListed = await sql.query`SELECT * FROM BLACKLIST_TOKENS WHERE token = ${token}`;
+        if (!isBlackListed.recordset || isBlackListed.recordset.length === 0) {
+            // Token is not blacklisted
+            const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+            // Fetch captin from CAPTIN table
+            const captin = await sql.query`SELECT * FROM CAPTIN WHERE CAPTIN_ID = ${decoded.CAPTIN_ID}`;
+            if (!captin.recordset || captin.recordset.length === 0) {
+                return res.status(401).json({ message: 'Captin not found' });
+            }
+            captin.recordset[0].PASSWORD = undefined; // Exclude password from response
+            captin.recordset[0].EMAIL = undefined; // Include token in response if needed
+            req.captin = captin.recordset[0];
+            //console.log("req.captin from isLoggedInCaptin: ", req.captin);
+            return next();
+        } else {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
     }
-    else{
-        return res.status(401).json({message:'Unauthorized'}) 
-    }    
 }
+
 module.exports = isLoggedInCaptin;

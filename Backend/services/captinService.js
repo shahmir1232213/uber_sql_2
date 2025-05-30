@@ -1,30 +1,21 @@
-const captinModel = require('../models/captinModel')
+const sql = require('mssql/msnodesqlv8');
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken");
 
-async function createCaptin({firstname,lastname,email,password,vehicleColor,vehiclePlate,vehicleCpacity,vehicleType}){
-    if(!firstname||!lastname||!email||!password||!vehicleColor||!vehiclePlate){
-        console.log("vehileColor: ",vehicleColor)
-        console.log("vehilePlate: ",vehiclePlate)
-        throw new Error("All fields must be filled")
-    }    
-    else{
-        let captin = await captinModel.create({
-            fullName:{
-                firstName:firstname,
-                lastName:lastname
-            },
-            email:email,
-            password:password,
-            vehicle:{
-                color:vehicleColor,
-                plate:vehiclePlate,
-                capacity:vehicleCpacity,
-                vehicleType:vehicleType,
-            }
-        })
-        return captin;
-    }
+async function hash_Password(password){
+    return await bcrypt.hash(password, 10);
 }
-
+async function compare_Password ({PASSWORD},inputPassword) {
+    //console.log("passqord: ",PASSWORD)
+    return await bcrypt.compare(inputPassword,PASSWORD);
+}
+function generateAuthToken({FIRST_NAME,CAPTIN_ID}) {
+    let payLoad = {CAPTIN_ID,FIRST_NAME};  
+    let token = jwt.sign(payLoad, process.env.JWT_SECRET_KEY,{expiresIn:'1h'});
+    return token;
+}
 module.exports = {
-    createCaptin
+    hash_Password,
+    generateAuthToken,
+    compare_Password
 }

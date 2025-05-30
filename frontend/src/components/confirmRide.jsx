@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import './confirmRide.css'
 import axios from 'axios'
+import { useContext } from 'react'
+import {UserDataContext} from '../context/userContext'
 const ConfirmRide = ({vhDetails,select,select2,points}) => {
+  const { user } = useContext(UserDataContext)
+  console.log("user from confirm ride: ",user)
   async function createRide(){
     console.log("vehicle type: ",vhDetails.vhDetails.vehicleType)
     console.log("point confirm: ",points.pickup)

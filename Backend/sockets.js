@@ -2,6 +2,7 @@ const socketIO = require('socket.io');
 const cors = require('cors');
 const userModel = require('./models/userModels');
 const captinModel = require('./models/captinModel');
+const sql = require('mssql/msnodesqlv8');
 
 let captinNamespace;
 let userNamespace;
@@ -18,12 +19,9 @@ function socketInitialization(server){
     console.log("user connected: ", socket.id);
 
     socket.on('join', async (userId) => {
-      let user = await userModel.findByIdAndUpdate(
-        userId,
-        { socketId: socket.id },
-        { new: true }
-      );
-      console.log("updated user: ", user);
+      console.log("updated user: ", userId);
+      let user = await sql.query`UPDATE USERS SET SOCKET_ID = ${socket.id} WHERE USER_ID = ${userId}`;
+      
     });
 
     socket.on('disconnect', async () => {
@@ -36,27 +34,18 @@ function socketInitialization(server){
     console.log("captin connected: ", socket.id);
 
     socket.on('join', async (captinId) => {
-     // console.log("captin_id: ",captinId)
+     console.log("updated captin: ",captinId );
       console.log("captin joined")
-      let captin = await captinModel.findByIdAndUpdate(
-        captinId,
-        { socketId: socket.id },
-        { new: true }
-      );
+     let user = await sql.query`UPDATE CAPTIN SET SOCKET_ID = ${socket.id} WHERE CAPTIN_ID = ${captinId}`;
      // console.log("updated captin: ", captin);
     });
     socket.on('update-location-captin',async (data)=>{
      // console.log("location: ",data)
-      let captin = await captinModel.findByIdAndUpdate(
-                          data.captinId,
-                          { 
-                            location:{
-                              latitude:data.location.ltd,
-                              longitude:data.location.lng
-                            }  
-                          },
-                          { new: true }
-                    );
+     await sql.query`
+            UPDATE CAPTIN
+            SET LONGITUDE = ${data.location.lng},
+                LATITUDE = ${data.location.ltd}
+            WHERE CAPTIN_ID = ${data.captinId}`;
     //  console.log("captin after: ",captin)
      })
     socket.on('disconnect', async () => {

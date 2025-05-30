@@ -15,7 +15,7 @@ const captinDetails = () => {
           <div className='captin'>
               <div className='driver'>
                 <img src='/images/dp.jpeg' />
-                <p className='driv_name'>{captin.fullName.firstName }</p>
+                <p className='driv_name'>{captin.FIRST_NAME}</p>
               </div>
               <p>600 $<br></br>Earned</p>
           </div> 

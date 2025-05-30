@@ -6,10 +6,6 @@ const authMiddleWare = require('../middleware/isLoggedInUser')
 const authMiddleWare_Captin = require('../middleware/isLoggedInCaptin')
 
 router.post('/create',authMiddleWare,
-    body('pickup').isString().isLength({ min: 3 }).withMessage('Invalid pickup address'),
-    body('destination').isString().isLength({ min: 3 }).withMessage('Invalid destination address'),
-    body('vehicleType').isString().isIn([ 'auto', 'car', 'moto' ]).withMessage('Invalid vehicle type'),
-    //body('fare').isNumeric().withMessage('Fare must be a number'),
     rideController.createRide
 )
 
@@ -20,7 +16,6 @@ router.get('/get-fare',authMiddleWare,
 )
 
 router.post('/confirm',authMiddleWare_Captin,
-       body('rideId').isMongoId().withMessage('Invalid MongoDB Id'),
        rideController.confirmRide
 )
 
@@ -29,10 +24,9 @@ router.post('/start-ride',authMiddleWare_Captin,
        rideController.startRide
 )
 router.post('/end-ride',authMiddleWare_Captin,
-        body('rideId').isMongoId().withMessage('Invalid MongoDB Id'),
         rideController.endRide
 )
-router.post('/cancel',authMiddleWare_Captin,
+router.post('/cancel',authMiddleWare,
             rideController.cancelRide
 )
 

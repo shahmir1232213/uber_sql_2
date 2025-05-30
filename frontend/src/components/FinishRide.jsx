@@ -5,7 +5,8 @@ import {useNavigate} from 'react-router-dom'
 const completeRidePopUp = ({setShowCompleteRide,rideWithUser}) => {
     let navigate = useNavigate()
     async function finishRideFunc(){
-        let rideId = rideWithUser._id;
+       //console.log("rideWithUser at completeRidePopUp: ", rideWithUser);
+        let rideId = rideWithUser.RIDE_ID;
         let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/end-ride`,{rideId},{
             headers:{
                 Authorization:`Bearer ${localStorage.getItem('token')}`

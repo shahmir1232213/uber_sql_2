@@ -2,6 +2,7 @@ const mapServices = require('./mapServices')
 const rideModel = require('../models/rideModel')
 const crypto = require('crypto')
 const Module = require('module')
+const sql = require('mssql/msnodesqlv8');
 
 module.exports.getFare = async (pickup,destination)=>{
     if(!pickup||!destination){
@@ -48,32 +49,32 @@ module.exports.createRide = async (user,pickup,destination,vehicleType,fare) =>{
     if(!user||!vehicleType||!pickup||!destination){
         throw new Error ("All fields are required")
     }
-    const ride = await rideModel.create({
-        user:user,
-        pickup:pickup,
-        destination:destination,
-        fare:fare,
-        vehicleType,
-        otp:getOtp()
-    })
-    return ride;
+    try{
+        var ride = await sql.query`
+        INSERT INTO RIDE(USER_ID, PICKUP, DESTINATION, FARE, VEHICLE_TYPE, OTP)
+        OUTPUT INSERTED.* 
+        VALUES (${user}, ${pickup}, ${destination}, ${fare}, ${vehicleType}, ${getOtp()})`;
+        //console.log("Ride created: ", ride.recordset[0]);
+    }catch(err){
+        console.log("Error from module.exports.createRide: ", err.message);
+    }
+        return ride.recordset[0];
 }
-module.exports.confirmRide = async (_id,captinId)=>{
-    if (!_id) {
+module.exports.confirmRide = async (rideId,captinID)=>{
+    if (!rideId) {
         throw new Error('Ride id is required');
     }
-    console.log("captinId: ",captinId)
-    await rideModel.findOneAndUpdate(
-        {_id},
-       { 
-        $set:{
-            status: 'accepted',
-            captin: captinId
-        }
-       },
-       {new:true}
-    )
-    const ride = await rideModel.findById(_id).populate('user').populate('captin').select('+otp');
+    console.log("captinId: ",captinID)
+    try{
+        await sql.query`
+            UPDATE RIDE
+            SET STATUS = 'accepted', CAPTIN_ID = ${captinID}
+            WHERE RIDE_ID = ${rideId};`;          
+    }
+    catch(err){
+        console.log("Error updating ride: ", err.message);
+    }
+    const ride = await sql.query`SELECT * FROM RIDE WHERE RIDE_ID = ${rideId};`;
     if (!ride) {
         throw new Error('Ride not found');
     }
@@ -86,15 +87,20 @@ module.exports.cancelRide = async (rideID,message) => {
         throw new Error('Ride id is required');
     }
     try{
-        let ride = await rideModel.findOneAndUpdate(
-            {_id:rideID},
-        { 
-            $set:{
-                status: message,
-            }
-        },
-        {new:true}
-        )
+        // let ride = await rideModel.findOneAndUpdate(
+        //     {_id:rideID},
+        // { 
+        //     $set:{
+        //         status: message,
+        //     }
+        // },
+        // {new:true}
+        // )
+        let ride = await sql.query`
+            UPDATE RIDE
+            SET STATUS = ${message}
+            OUTPUT INSERTED.*
+            WHERE RIDE_ID = ${rideID};`;
         return ride;
     }
     catch(err){
@@ -106,19 +112,21 @@ module.exports.startRideService = async (rideId) => {
     if (!rideId) {
         throw new Error('Ride id is required');
     }
-    const ride = await rideModel.findOne({
-        _id: rideId
-    }).populate('user').populate('captin').select('+otp');
-    
+    var ride = await sql.query`SELECT * FROM RIDE WHERE RIDE_ID = ${rideId};`;
+    ride = ride.recordset[0];
     if (!ride) {
         throw new Error('Ride not found');
     }
-
-    if (ride.status !== 'accepted') {
+    if (ride.STATUS !== 'accepted') {
         throw new Error('Ride not accepted');
     }
-     ride.status = "ongoing";
-     await ride.save();
+     ride = await sql.query`
+        UPDATE RIDE
+        SET STATUS = 'ongoing'
+         OUTPUT INSERTED.*
+        WHERE RIDE_ID = ${rideId};
+    `;
+     ride = ride.recordset[0];
      return ride;
 }
 

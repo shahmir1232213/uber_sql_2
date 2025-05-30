@@ -37,16 +37,16 @@ const CaptinHome = () => {
   }
 
  useEffect(() => {
-  if (captin && captin._id) {
-    console.log("captin._id: ", captin._id);
-    captinSocket.emit('join', captin._id);
+  if (captin && captin.CAPTIN_ID) {
+    console.log("captin.CAPTIN_ID: ", captin.CAPTIN_ID);
+    captinSocket.emit('join', captin.CAPTIN_ID);
       
     const updateLocation = () => {
         if(navigator.geolocation){
             console.log("navigation yes")
             navigator.geolocation.getCurrentPosition(position => {
               captinSocket.emit('update-location-captin',{
-                    captinId : captin._id,
+                    captinId : captin.CAPTIN_ID,
                     location: {
                       ltd: position.coords.latitude,
                       lng: position.coords.longitude
@@ -73,8 +73,8 @@ useEffect(() => {
 
 async function confirmRide(){
   let response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/confirm`,{
-    rideId:rideWithUser._id,
-    captin:captin._id
+    rideId:rideWithUser.RIDE_ID,
+    captinID:captin.CAPTIN_ID,
   },
   {
     headers:{

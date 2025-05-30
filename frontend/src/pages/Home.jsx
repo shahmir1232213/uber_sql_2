@@ -36,7 +36,7 @@ const Home = () => {
   useEffect(()=>{
     console.log("user from home_2: ",user)
     try{
-      socket.emit('join',user._id)
+      socket.emit('join',user.USER_ID)
     }
     catch(err){
       console.log("error ",err.message)
@@ -144,7 +144,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchCoordinates() {
       const coordinates = await GeoService.getCoordinates(`${pickup}`);
-      console.log('Pickup coordinates: ',coordinates);
+    //  console.log('Pickup coordinates: ',coordinates);
       setPickUpCoordinates(coordinates)
     }
     fetchCoordinates();
@@ -154,7 +154,7 @@ const Home = () => {
   useEffect(() => {
     async function fetchCoordinates() {
       const coordinates = await GeoService.getCoordinates(`${destination}`);
-      console.log('Destination coordinates:', coordinates);
+      //console.log('Destination coordinates:', coordinates);
       setDestinationCoordinates(coordinates);
     }
     fetchCoordinates();
@@ -353,7 +353,7 @@ useEffect(() => {
 useEffect(()=>{
   if(socket){
     socket.on('ride-confirmed',(data)=>{
-      console.log("frontend got confirmed ride: ",data)
+     // console.log("frontend got confirmed ride: ",data)
       SetconfirmPopUpPannel(true)
       setRide(data)
     })
