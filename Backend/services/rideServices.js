@@ -134,18 +134,16 @@ module.exports.endRide = async (rideId) => {
     if (!rideId) {
         throw new Error('Ride id is required');
     }
-    const ride = await rideModel.findOne({
-        _id: rideId
-    }).populate('user').populate('captin').select('+otp');
-    
+     let ride = await sql.query`
+            UPDATE RIDE 
+            SET STATUS = 'completed' 
+            OUTPUT INSERTED.* 
+            WHERE RIDE_ID = ${rideId};
+        `;
+        
     if (!ride) {
         throw new Error('Ride not found');
     }
-
-    if (ride.status !== 'ongoing') {
-        throw new Error('Ride not ongoing');
-    }
-     ride.status = "completed";
-     await ride.save();
+    ride = ride.recordset[0];
      return ride;
 }

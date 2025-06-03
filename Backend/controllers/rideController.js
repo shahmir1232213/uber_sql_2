@@ -122,20 +122,10 @@ module.exports.endRide = async (req, res) => {
     const { rideId } = req.body;
     console.log("rideId from End: ",rideId)
     try {
-        //const ride = await rideService.endRide(rideId);
-       
-       let ride = await sql.query`
-            UPDATE RIDE 
-            SET STATUS = 'completed' 
-            OUTPUT INSERTED.* 
-            WHERE RIDE_ID = ${rideId};
-        `;
-        ride = ride.recordset[0];
+        const ride = await rideService.endRide(rideId);
+        
         console.log("Ended ride: ", ride);
-        // sendMessageToSocketId(ride.user.socketId, {
-        //     event: 'ride-ended',
-        //     data: ride
-        // })
+
         return res.status(200).json(ride);
     } catch (err) {
         return res.status(500).json({ message: err.message });
