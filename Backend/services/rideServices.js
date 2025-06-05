@@ -96,11 +96,11 @@ module.exports.cancelRide = async (rideID,message) => {
         // },
         // {new:true}
         // )
-        let ride = await sql.query`
+        await sql.query`
             UPDATE RIDE
             SET STATUS = ${message}
-            OUTPUT INSERTED.*
             WHERE RIDE_ID = ${rideID};`;
+        let ride = await sql.query`SELECT * FROM RIDE WHERE RIDE_ID = ${rideId};`;
         return ride;
     }
     catch(err){
@@ -120,12 +120,12 @@ module.exports.startRideService = async (rideId) => {
     if (ride.STATUS !== 'accepted') {
         throw new Error('Ride not accepted');
     }
-     ride = await sql.query`
+     await sql.query`
         UPDATE RIDE
         SET STATUS = 'ongoing'
-         OUTPUT INSERTED.*
         WHERE RIDE_ID = ${rideId};
     `;
+     ride = await sql.query`SELECT * FROM RIDE WHERE RIDE_ID = ${rideId};`;
      ride = ride.recordset[0];
      return ride;
 }
@@ -134,13 +134,12 @@ module.exports.endRide = async (rideId) => {
     if (!rideId) {
         throw new Error('Ride id is required');
     }
-     let ride = await sql.query`
+      await sql.query`
             UPDATE RIDE 
             SET STATUS = 'completed' 
-            OUTPUT INSERTED.* 
             WHERE RIDE_ID = ${rideId};
         `;
-        
+        let ride = await sql.query`SELECT * FROM RIDE WHERE RIDE_ID = ${rideId};`;
     if (!ride) {
         throw new Error('Ride not found');
     }

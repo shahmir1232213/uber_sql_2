@@ -14,6 +14,7 @@ import MapComponent from '../components/Map';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import StartRide from '../components/StartRide';
+import RideFinished from '../components/RideFinished';
 const Home = () => {
     /* asal main socket hai bus name 
    captin diya va don't confuse*/
@@ -57,6 +58,8 @@ const Home = () => {
   const formRef = useRef(false)
   const confirmRef = useRef(false)
   const userPopConfirmRef = useRef(null)
+  const rideFinishedRef = useRef(null)
+
   const [selectionPannel,SetSelectionPannel] = useState(null)
   const [selectionPannel_2,SetSelectionPannel_2] = useState(false)
   const [lookingPannel,SetlookingPannel] = useState(false)
@@ -64,6 +67,7 @@ const Home = () => {
   const [confiirmPannelClose,SetConfirmPannelClose] = useState(false)
   const [CloseConfirmPopUpPannel,SetCloseConfirmPopUpPannel] = useState(null)
   const [ride,setRide] = useState(null)
+  const [rideFinished,setRideFinished] = useState(false)  
 
   const [pickUpCoordinates, setPickUpCoordinates] = useState({ latitude: null, longitude: null });
   const [destinationCoordinates, setDestinationCoordinates] = useState({ latitude: null, longitude: null });
@@ -95,8 +99,36 @@ const Home = () => {
             SetStartPannel(true)
             console.log("ride started socket reached")
           })
-
     },[userSocket])
+    useEffect(() => {
+  if (socket) {
+    socket.on('ride-ended', () => {
+      SetStartPannel(false);         // Hide StartRide panel
+      setRideFinished(true);         // Show RideFinished panel
+      console.log("ride ended socket reached");
+    });
+  }
+  // Optional: cleanup to prevent multiple listeners
+  return () => {
+    if (socket) socket.off('ride-ended');
+  };
+}, [socket]);
+
+    useEffect(() => {
+      if (rideFinished) {
+        // Hide the start panel and show the ride finished panel
+        gsap.to(startRef.current, {
+          display: 'none',
+          duration: 0 // Instant change
+        });
+        
+        gsap.to(rideFinishedRef.current, {
+          display: 'block',
+          duration: 0 // Instant change
+        });
+      }
+    }, [rideFinished]);
+
     /*Ride Started Popup */
     useEffect(() => {
       if (startPannel) {
@@ -478,9 +510,18 @@ useEffect(() => {
     <div ref={userPopConfirmRef} style={{display:'none'}}>
         <RidePickConfirm SetCloseConfirmPopUpPannel={SetCloseConfirmPopUpPannel} ride={ride}/>
     </div>
-       <div ref={startRef} style={{display:'none'}}>
-          <StartRide ride={ride} SetCloseConfirmPopUpPannel={SetCloseConfirmPopUpPannel} />
-        </div>
+        
+    {startPannel && (
+      <div ref={startRef}>
+        <StartRide ride={ride} SetCloseConfirmPopUpPannel={SetCloseConfirmPopUpPannel} />
+      </div>
+    )}
+    
+    {rideFinished && (
+      <div ref={rideFinishedRef}>
+        <RideFinished onClose={() => setRideFinished(false)} />
+      </div>
+    )}
   </div>
  
   );

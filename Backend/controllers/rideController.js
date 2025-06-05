@@ -123,9 +123,16 @@ module.exports.endRide = async (req, res) => {
     console.log("rideId from End: ",rideId)
     try {
         const ride = await rideService.endRide(rideId);
-        
         console.log("Ended ride: ", ride);
-
+        let userID = await sql.query`SELECT * FROM RIDE WHERE RIDE_ID = ${rideId}`;
+        userID = userID.recordset[0].USER_ID;
+        let userCompleteData = await sql.query`SELECT * FROM USERS WHERE USER_ID = ${userID}`;
+        console.log("userCompleteData from endRide", userCompleteData);
+        let userSocketId = userCompleteData.recordset[0].SOCKET_ID;
+        console.log("userSocketId from endRide: ", userSocketId);
+        let userNamespace = getUserNamespace()
+        userNamespace.to(userSocketId).emit('ride-ended', ride);
+        
         return res.status(200).json(ride);
     } catch (err) {
         return res.status(500).json({ message: err.message });
