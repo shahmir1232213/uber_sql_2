@@ -1,5 +1,6 @@
 const axios = require('axios');
-const captainModel = require('../models/captinModel');
+//const captainModel = require('../models/captinModel');
+const sql = require('mssql/msnodesqlv8');
 
 module.exports.getAddressCoordinate = async (address) => {
     const apiKey = process.env.GO_MAP_PRO_SECRETKEY;
@@ -73,18 +74,33 @@ module.exports.getAutoCompleteSuggestions = async (input)=>{
     }
 }
 
-module.exports.getCaptinInTheRadius = async (ltd,lng,radius) => {
-    let captins = await captainModel.find({
-        location:{
-            $geoWithin: {
-                $centerSphere:[[ltd,lng],radius/6371]
-            }
-        }
-    })
+module.exports.getCaptinInTheRadius = async (lat, lng, radiusKm) => {
+    try {
+        const query = `
+            SELECT *
+            FROM CAPTIN
+            WHERE
+                -- Convert to FLOAT and calculate distance using Haversine formula
+                6371 * ACOS(
+                    COS(RADIANS(@lat)) * COS(RADIANS(CAST(LATITUDE AS FLOAT))) *
+                    COS(RADIANS(CAST(LONGITUDE AS FLOAT)) - RADIANS(@lng)) +
+                    SIN(RADIANS(@lat)) * SIN(RADIANS(CAST(LATITUDE AS FLOAT)))
+                ) <= @radius
+                AND STATUS = 'Available';
+        `;
 
-    return captins;
-}
+        const request = new sql.Request();
+        request.input('lat', sql.Float, lat);
+        request.input('lng', sql.Float, lng);
+        request.input('radius', sql.Float, radiusKm);
 
+        const result = await request.query(query);
+        return result.recordset;
+    } catch (err) {
+        console.error('SQL Server query error:', err);
+        throw err;
+    }
+};
 // module.exports.getCaptainsInTheRadius = async (ltd, lng, radius) => {
 
 //     // radius in km

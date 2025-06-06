@@ -1,8 +1,8 @@
 const express = require('express')
-const userModel = require('../models/userModels')
+//const userModel = require('../models/userModels')
 const {validationResult} = require("express-validator")
 const userService = require('../services/userService');
-const blackListTokenModel = require('../models/blackListTokenSchema');
+//const blackListTokenModel = require('../models/blackListTokenSchema');
 const sql = require('mssql/msnodesqlv8');
 
 async function register(req,res,next){

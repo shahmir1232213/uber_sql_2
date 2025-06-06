@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/userModels");
-const blackListTokenModel = require("../models/blackListTokenSchema");
+//const userModel = require("../models/userModels");
+//const blackListTokenModel = require("../models/blackListTokenSchema");
 const sql = require('mssql/msnodesqlv8');
 
 async function isLoggedInUser(req,res,next){

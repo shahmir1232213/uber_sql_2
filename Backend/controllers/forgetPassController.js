@@ -1,6 +1,6 @@
 const sendMail = require("../services/mailService"); 
 const crypto = require('crypto');
-const userModel = require("../models/userModels");
+//const userModel = require("../models/userModels");
 const mailService = require("../services/mailService");
 const bcrypt = require("bcrypt")
 

@@ -1,4 +1,4 @@
-const userModel = require('../models/userModels')
+//const userModel = require('../models/userModels')
 const sql = require('mssql/msnodesqlv8');
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");

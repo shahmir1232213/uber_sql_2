@@ -1,5 +1,5 @@
 const mapServices = require('./mapServices')
-const rideModel = require('../models/rideModel')
+//const rideModel = require('../models/rideModel')
 const crypto = require('crypto')
 const Module = require('module')
 const sql = require('mssql/msnodesqlv8');

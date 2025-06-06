@@ -1,7 +1,7 @@
 const socketIO = require('socket.io');
 const cors = require('cors');
-const userModel = require('./models/userModels');
-const captinModel = require('./models/captinModel');
+//const userModel = require('./models/userModels');
+//const captinModel = require('./models/captinModel');
 const sql = require('mssql/msnodesqlv8');
 
 let captinNamespace;

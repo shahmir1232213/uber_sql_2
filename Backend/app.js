@@ -2,7 +2,7 @@ const express = require ("express")
 const app = express();
 // const http = require("http");
 const connectToSQLServer = require('./sql');
-const mongooseConnection = require('./db');
+//const mongooseConnection = require('./db');
 //const sql = require('mssql/msnodesqlv8');
 
 // async function main() {

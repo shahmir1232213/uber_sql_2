@@ -1,8 +1,8 @@
 const express = require('express')
-const captinModel = require('../models/captinModel')
+//const captinModel = require('../models/captinModel')
 const {validationResult} = require("express-validator")
 const captinService = require('../services/captinService');
-const blackListTokenModel = require('../models/blackListTokenSchema');
+//const blackListTokenModel = require('../models/blackListTokenSchema');
 const sql = require('mssql/msnodesqlv8');
 
 // got req.body from express validator
@@ -92,10 +92,10 @@ function home(req,res,next){
  
  }
 
- async function setting(req,res,next){
-    let captins = await captinModel.find();
+ //async function setting(req,res,next){
+   // let captins = await captinModel.find();
     //console.log("captin: ",captins)
-    return res.status(200).json(captins);
+    //return res.status(200).json(captins);
     // let captins2 = await captinModel.findOneAndUpdate(
     //     {_id:'67c414144ecd0ba1cbc751c0'},
     //     {
@@ -107,11 +107,11 @@ function home(req,res,next){
     //     {new:true}
     // )
     // console.log("captins after: ", captins2);
-  }
+  //}
 module.exports = {
     register,
     login,
     logout,
     home,
-    setting
+   // setting
 }

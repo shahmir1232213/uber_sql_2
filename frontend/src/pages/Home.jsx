@@ -385,7 +385,7 @@ useEffect(() => {
 useEffect(()=>{
   if(socket){
     socket.on('ride-confirmed',(data)=>{
-     // console.log("frontend got confirmed ride: ",data)
+      console.log("frontend got confirmed ride: ",data)
       SetconfirmPopUpPannel(true)
       setRide(data)
     })

@@ -2,20 +2,21 @@ const rideService = require('../services/rideServices')
 const {validationResult} = require('express-validator')
 const mapService = require('../services/mapServices')
 const {getCaptinNamespace, getUserNamespace } = require('../sockets')
-const rideModel = require('../models/rideModel')
+//const rideModel = require('../models/rideModel')
 const sql = require('mssql/msnodesqlv8');
 
 module.exports.createRide = async (req,res,next)=> {
+  // console.log("req.body from create ride: ",req.user)
     const errors = validationResult(req)
     if(!errors.isEmpty()){
         return res.status(400).json({error:errors.array()})
     }
     let {pickup,destination,vehicleType,fare} = req.body;
     try{
-        console.log("req.user.USER_ID from create ride: ",req.user.USER_ID)
+       // console.log("req.user.USER_ID from create ride: ",req.user.USER_ID)
      
         let  pickupCoordinates = await mapService.getAddressCoordinate(pickup);
-       console.log("pickup coordinates: ",pickupCoordinates)
+       //console.log("pickup coordinates: ",pickupCoordinates)
         // destinationCoordrinates = await mapService.getAddressCoordinate(destination);
         //console.log("destinantion coordinates: ",destination)
         let ride = await rideService.createRide(req.user.USER_ID,pickup,destination,vehicleType,fare)
@@ -120,14 +121,14 @@ module.exports.endRide = async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     const { rideId } = req.body;
-    console.log("rideId from End: ",rideId)
+   // console.log("rideId from End: ",rideId)
     try {
         const ride = await rideService.endRide(rideId);
-        console.log("Ended ride: ", ride);
+        //console.log("Ended ride: ", ride);
         let userID = await sql.query`SELECT * FROM RIDE WHERE RIDE_ID = ${rideId}`;
         userID = userID.recordset[0].USER_ID;
         let userCompleteData = await sql.query`SELECT * FROM USERS WHERE USER_ID = ${userID}`;
-        console.log("userCompleteData from endRide", userCompleteData);
+        //console.log("userCompleteData from endRide", userCompleteData);
         let userSocketId = userCompleteData.recordset[0].SOCKET_ID;
         console.log("userSocketId from endRide: ", userSocketId);
         let userNamespace = getUserNamespace()
