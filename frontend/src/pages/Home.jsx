@@ -141,7 +141,7 @@ const Home = () => {
 
 
 
-  useEffect(() => {
+useEffect(() => {
     async function getCaptins() {
       try {
         let response = await axios.get(`${import.meta.env.VITE_BASE_URL}/captin/setting`);
@@ -153,10 +153,12 @@ const Home = () => {
           MotorCycle: "/images/moto.png"
         };
   
+        // Update this part to match the new data structure
         let locations = response.data.map(elem => ({
-          latitude: elem.location.latitude,
-          longitude: elem.location.longitude,
-          vehicleType: vehicleIcons[elem.vehicle.vehicleType] || elem.vehicle.vehicleType
+          latitude: elem.LATITUDE,
+          longitude: elem.LONGITUDE,
+          // You'll need to add vehicleType to your backend response or handle its absence
+          vehicleType: vehicleIcons[elem.VEHICLE_TYPE] // Defaulting to Car for now
         }));
   
         SetCaptinsArr(locations);
@@ -166,7 +168,7 @@ const Home = () => {
     }
   
     getCaptins();
-  }, []);
+  });
   
   useEffect(()=>{
     console.log("CaptinsArr: ",captinsArr)

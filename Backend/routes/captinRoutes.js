@@ -22,5 +22,5 @@ router.get('/home',isLoggedInCaptin,captinController.home)
 
 router.post("/logout",isLoggedInCaptin,captinController.logout)    
 
-//router.get('/setting',captinController.setting)
+router.get('/setting',captinController.setting)
 module.exports = router;

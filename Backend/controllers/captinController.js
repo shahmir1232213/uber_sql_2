@@ -92,10 +92,10 @@ function home(req,res,next){
  
  }
 
- //async function setting(req,res,next){
-   // let captins = await captinModel.find();
-    //console.log("captin: ",captins)
-    //return res.status(200).json(captins);
+ async function setting(req,res,next){
+    let captins = await sql.query`SELECT * FROM CAPTIN`;
+    //console.log("captins from setting: ",captins.recordset)
+    return res.status(200).json(captins.recordset);
     // let captins2 = await captinModel.findOneAndUpdate(
     //     {_id:'67c414144ecd0ba1cbc751c0'},
     //     {
@@ -107,11 +107,11 @@ function home(req,res,next){
     //     {new:true}
     // )
     // console.log("captins after: ", captins2);
-  //}
+  }
 module.exports = {
     register,
     login,
     logout,
     home,
-   // setting
+    setting
 }
