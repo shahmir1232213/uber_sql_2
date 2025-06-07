@@ -168,7 +168,7 @@ useEffect(() => {
     }
   
     getCaptins();
-  });
+  },[]);
   
   useEffect(()=>{
     console.log("CaptinsArr: ",captinsArr)

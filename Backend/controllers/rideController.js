@@ -16,10 +16,12 @@ module.exports.createRide = async (req,res,next)=> {
        // console.log("req.user.USER_ID from create ride: ",req.user.USER_ID)
      
         let  pickupCoordinates = await mapService.getAddressCoordinate(pickup);
+        let distance2 = await mapService.getDistanceTime(pickup,destination);
+        console.log("distance boooooo: ",distance2.distance.text)
        //console.log("pickup coordinates: ",pickupCoordinates)
         // destinationCoordrinates = await mapService.getAddressCoordinate(destination);
         //console.log("destinantion coordinates: ",destination)
-        let ride = await rideService.createRide(req.user.USER_ID,pickup,destination,vehicleType,fare)
+        let ride = await rideService.createRide(req.user.USER_ID,pickup,destination,vehicleType,fare,distance2.distance.text,distance2.duration.text);
         // console.log("otp: ", ride.OTP);
         console.log("Ride created at controller: ", ride);
         let captinRadius = await mapService.getCaptinInTheRadius(pickupCoordinates.ltd,pickupCoordinates.lng,5)

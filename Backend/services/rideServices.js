@@ -9,7 +9,8 @@ module.exports.getFare = async (pickup,destination)=>{
         throw new Error ("Pickup and destination required")
     }
     let distance_and_duration = await mapServices.getDistanceTime(pickup,destination)
-    
+    // console.log("pickup: ",pickup)
+    // console.log("destination: ",destination)
     const baseFare = {
         auto: 30,
         car: 50,
@@ -45,15 +46,17 @@ function getOtp(){
 
 }
 
-module.exports.createRide = async (user,pickup,destination,vehicleType,fare) =>{
+module.exports.createRide = async (user,pickup,destination,vehicleType,fare,distance,duration) =>{
     if(!user||!vehicleType||!pickup||!destination){
         throw new Error ("All fields are required")
     }
     try{
+        console.log("distance bakra: ",distance)
+        console.log("duration bakra: ",duration)
         var ride = await sql.query`
-        INSERT INTO RIDE(USER_ID, PICKUP, DESTINATION, FARE, VEHICLE_TYPE, OTP)
+        INSERT INTO RIDE(USER_ID, PICKUP, DESTINATION, FARE, VEHICLE_TYPE, OTP,DISTANCE,DURATION)
         OUTPUT INSERTED.* 
-        VALUES (${user}, ${pickup}, ${destination}, ${fare}, ${vehicleType}, ${getOtp()})`;
+        VALUES (${user}, ${pickup}, ${destination}, ${fare}, ${vehicleType}, ${getOtp()}, ${distance}, ${duration})`;
         //console.log("Ride created: ", ride.recordset[0]);
     }catch(err){
         console.log("Error from module.exports.createRide: ", err.message);
